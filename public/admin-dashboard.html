@@ -1431,10 +1431,21 @@ async function loadOrders(){
 
                 <h3>
 
-                    👤 ${order.customerName}
+    📦 ${order.orderId}
 
-                </h3>
+</h3>
 
+<p>
+
+    👤 ${order.customerName}
+
+</p>
+
+<p>
+
+    📧 ${order.email}
+
+</p>
                 <p>
 
                     📞 ${order.phone}
@@ -1478,44 +1489,66 @@ async function loadOrders(){
                         class="status-select"
                     >
 
-                        <option
-                            value="Pending"
-                            ${order.status === "Pending" ? "selected" : ""}
-                        >
+                       <select
+    id="status-${order._id}"
+    class="status-select"
+>
 
-                            Pending
+    <option
+        value="Order Placed"
+        ${order.status === "Order Placed" ? "selected" : ""}
+    >
 
-                        </option>
+        Order Placed
 
-                        <option
-                            value="Shipped"
-                            ${order.status === "Shipped" ? "selected" : ""}
-                        >
+    </option>
 
-                            Shipped
+    <option
+        value="Preparing"
+        ${order.status === "Preparing" ? "selected" : ""}
+    >
 
-                        </option>
+        Preparing
 
-                        <option
-                            value="Delivered"
-                            ${order.status === "Delivered" ? "selected" : ""}
-                        >
+    </option>
 
-                            Delivered
+    <option
+        value="Packed"
+        ${order.status === "Packed" ? "selected" : ""}
+    >
 
-                        </option>
+        Packed
 
-                        <option
-                            value="Cancelled"
-                            ${order.status === "Cancelled" ? "selected" : ""}
-                        >
+    </option>
 
-                            Cancelled
+    <option
+        value="Out For Delivery"
+        ${order.status === "Out For Delivery" ? "selected" : ""}
+    >
 
-                        </option>
+        Out For Delivery
 
-                    </select>
+    </option>
 
+    <option
+        value="Delivered"
+        ${order.status === "Delivered" ? "selected" : ""}
+    >
+
+        Delivered
+
+    </option>
+
+    <option
+        value="Cancelled"
+        ${order.status === "Cancelled" ? "selected" : ""}
+    >
+
+        Cancelled
+
+    </option>
+
+</select>
                     <button
                         class="update-btn"
                         onclick="updateStatus('${order._id}')"
@@ -1531,40 +1564,49 @@ async function loadOrders(){
 
         `;
 
-        /* STATUS WISE DISPLAY */
+       /* STATUS DISPLAY */
 
-        if(
-            order.status === "Pending"
-            || !order.status
-        ){
+if(
 
-            pendingContainer.innerHTML += orderHTML;
+    order.status === "Order Placed" ||
+    order.status === "Preparing" ||
+    order.status === "Packed"
 
-        }
+){
 
-        else if(
-            order.status === "Shipped"
-        ){
+    pendingContainer.innerHTML += orderHTML;
 
-            shippedContainer.innerHTML += orderHTML;
+}
 
-        }
+else if(
 
-        else if(
-            order.status === "Delivered"
-        ){
+    order.status === "Out For Delivery"
 
-            deliveredContainer.innerHTML += orderHTML;
+){
 
-        }
+    shippedContainer.innerHTML += orderHTML;
 
-        else if(
-            order.status === "Cancelled"
-        ){
+}
 
-            cancelledContainer.innerHTML += orderHTML;
+else if(
 
-        }
+    order.status === "Delivered"
+
+){
+
+    deliveredContainer.innerHTML += orderHTML;
+
+}
+
+else if(
+
+    order.status === "Cancelled"
+
+){
+
+    cancelledContainer.innerHTML += orderHTML;
+
+}
 
     });
 

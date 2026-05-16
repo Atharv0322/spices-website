@@ -14,66 +14,120 @@
 </head>
 
 <body>
+
 <!-- TOAST -->
 
 <div id="toast"></div>
-    <!-- NAVBAR -->
 
-    <nav class="navbar">
+<!-- NAVBAR -->
 
-        <div class="nav-left">
+<nav class="navbar">
 
-            <a href="index.html">Home</a>
+    <div class="logo-center">
 
-            <a href="products.html">Products</a>
+        <span class="logo-icon">
 
-            <a href="about.html">About</a>
+            🌶️
 
-        </div>
+        </span>
 
-        <div class="logo-center">
+        <span class="logo-text">
 
-            <span class="logo-icon">🌶️</span>
+            Atharv Masala
 
-            <span class="logo-text">
+        </span>
 
-                Atharv Masala
+    </div>
 
-            </span>
+    <div
+        class="mobile-menu-btn"
+        onclick="openSidebar()"
+    >
 
-        </div>
+        ☰
 
-        <div class="nav-right">
+    </div>
 
-            <a href="cart.html">
+    <div class="nav-left">
 
-    Cart (<span id="cart-count">0</span>)
+        <a href="index.html">Home</a>
 
-</a>
+        <a href="products.html">Products</a>
 
-            <a href="login.html">Admin</a>
+        <a href="about.html">About</a>
 
-        </div>
+    </div>
 
-    </nav>
+    <div class="nav-right">
 
-    <!-- PAGE HERO -->
+        <a href="cart.html">
 
-    <section class="page-hero">
+            Cart (<span id="cart-count">0</span>)
 
-        <h1>
+        </a>
 
-            🌶️ Premium Spice Collection
+        <a href="login.html">
 
-        </h1>
+            Admin
 
-        <p>
+        </a>
 
-            Explore authentic Indian spices & masalas
+    </div>
 
-        </p>
+</nav>
 
-    </section>
+<!-- MOBILE SIDEBAR -->
+
+<div
+    class="mobile-sidebar"
+    id="mobileSidebar"
+>
+
+    <div
+        class="close-sidebar"
+        onclick="closeSidebar()"
+    >
+
+        ✕
+
+    </div>
+
+    <a href="index.html">🏠 Home</a>
+
+    <a href="products.html">🛍 Products</a>
+
+    <a href="about.html">ℹ About</a>
+
+    <a href="cart.html">🛒 Cart</a>
+
+    <a href="login.html">🔐 Admin</a>
+
+</div>
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+    onclick="closeSidebar()"
+></div>
+
+<!-- PAGE HERO -->
+
+<section class="page-hero">
+
+    <h1>
+
+        🌶️ Premium Spice Collection
+
+    </h1>
+
+    <p>
+
+        Explore authentic Indian spices & masalas
+
+    </p>
+
+</section>
+
 <!-- CATEGORY FILTERS -->
 
 <div class="category-bar">
@@ -121,22 +175,23 @@
     </button>
 
 </div>
-    <!-- SEARCH -->
 
-    <div class="search-box">
+<!-- SEARCH -->
 
-        <input
-            type="text"
-            id="search"
-            placeholder="Search spices..."
-            onkeyup="searchProducts()"
-        >
+<div class="search-box">
 
-    </div>
+    <input
+        type="text"
+        id="search"
+        placeholder="Search spices..."
+        onkeyup="searchProducts()"
+    >
 
-    <!-- PRODUCTS -->
+</div>
 
-    <div class="page-container">
+<!-- PRODUCTS -->
+
+<div class="page-container">
 
     <section
         id="products"
@@ -147,25 +202,55 @@
 
 </div>
 
-    <!-- FOOTER -->
+<!-- FOOTER -->
 
-    <footer class="footer">
+<footer class="footer">
 
-        <h2>
+    <h2>
 
-            🌶️ Atharv Masala Stores
+        🌶️ Atharv Masala Stores
 
-        </h2>
+    </h2>
 
-        <p>
+    <p>
 
-            Authentic Indian Taste Delivered Fresh
+        Authentic Indian Taste Delivered Fresh
 
-        </p>
+    </p>
 
-    </footer>
+</footer>
 
-    <script src="script.js"></script>
+<!-- MOBILE SIDEBAR SCRIPT -->
+
+<script>
+
+function openSidebar(){
+
+    document
+        .getElementById("mobileSidebar")
+        .classList.add("active");
+
+    document
+        .getElementById("sidebarOverlay")
+        .classList.add("active");
+
+}
+
+function closeSidebar(){
+
+    document
+        .getElementById("mobileSidebar")
+        .classList.remove("active");
+
+    document
+        .getElementById("sidebarOverlay")
+        .classList.remove("active");
+
+}
+
+</script>
+
+<script src="script.js"></script>
 
 </body>
 

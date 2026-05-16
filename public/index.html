@@ -19,10 +19,12 @@
 
 </head>
 
-<body>  
-    <!-- TOAST -->
+<body>
+
+<!-- TOAST -->
 
 <div id="toast"></div>
+
 <!-- LOADER -->
 
 <div class="loader-wrapper" id="loader">
@@ -30,42 +32,99 @@
     <div class="loader"></div>
 
 </div>
-    <!-- NAVBAR -->
 
-    <nav class="navbar">
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo-center">
+
+        <span class="logo-icon">
+            🌶️
+        </span>
+
+        <span class="logo-text">
+
+            Atharv Masala
+
+        </span>
+
+    </div>
+
+    <div
+        class="mobile-menu-btn"
+        onclick="openSidebar()"
+    >
+
+        ☰
+
+    </div>
 
     <div class="nav-left">
 
-    <a href="index.html">Home</a>
+        <a href="index.html">Home</a>
 
-    <a href="products.html">Products</a>
+        <a href="products.html">Products</a>
 
-    <a href="about.html">About</a>
-
-    </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">
-
-          ☰
+        <a href="about.html">About</a>
 
     </div>
+
     <div class="nav-right">
 
         <a href="cart.html">
 
-    Cart (<span id="cart-count">0</span>)
+            Cart (<span id="cart-count">0</span>)
 
-</a>
+        </a>
 
-        <a href="login.html">Admin</a>
+        <a href="login.html">
+
+            Admin
+
+        </a>
 
     </div>
 
 </nav>
 
-    <!-- HERO SECTION -->
+<!-- MOBILE SIDEBAR -->
 
-   <section class="hero">
+<div
+    class="mobile-sidebar"
+    id="mobileSidebar"
+>
+
+    <div
+        class="close-sidebar"
+        onclick="closeSidebar()"
+    >
+
+        ✕
+
+    </div>
+
+    <a href="index.html">🏠 Home</a>
+
+    <a href="products.html">🛍 Products</a>
+
+    <a href="about.html">ℹ About</a>
+
+    <a href="cart.html">🛒 Cart</a>
+
+    <a href="login.html">🔐 Admin</a>
+
+</div>
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+    onclick="closeSidebar()"
+></div>
+
+<!-- HERO SECTION -->
+
+<section class="hero">
 
     <div class="hero-overlay"></div>
 
@@ -74,7 +133,9 @@
         <div class="premium-logo">
 
             <div class="logo-icon-big">
+
                 🌶️
+
             </div>
 
             <h1 class="brand-title">
@@ -113,13 +174,14 @@
 
 </section>
 
-    <!-- FEATURES -->
-     <!-- TRENDING PRODUCTS -->
+<!-- TRENDING PRODUCTS -->
 
 <section class="trending-section">
 
     <h2>
+
         🔥 Trending Masalas
+
     </h2>
 
     <div class="trending-container">
@@ -131,11 +193,15 @@
             <div class="trending-content">
 
                 <h3>
+
                     Garam Masala
+
                 </h3>
 
                 <p>
+
                     Rich aroma & authentic Indian flavor
+
                 </p>
 
             </div>
@@ -149,11 +215,15 @@
             <div class="trending-content">
 
                 <h3>
+
                     Red Chilli Powder
+
                 </h3>
 
                 <p>
+
                     Premium spicy taste for every dish
+
                 </p>
 
             </div>
@@ -162,16 +232,20 @@
 
         <div class="trending-card">
 
-         <img src="https://www.shriradhespices.in/storage/sliders/ehl-passugg-blog-kurkuma-titelbild-001.jpg">
+            <img src="https://www.shriradhespices.in/storage/sliders/ehl-passugg-blog-kurkuma-titelbild-001.jpg">
 
             <div class="trending-content">
 
                 <h3>
+
                     Turmeric Powder
+
                 </h3>
 
                 <p>
+
                     Pure organic haldi with natural color
+
                 </p>
 
             </div>
@@ -182,113 +256,169 @@
 
 </section>
 
-    <section class="features">
+<!-- FEATURES -->
 
-        <div class="feature-card">
+<section class="features">
 
-            🚚
+    <div class="feature-card">
 
-            <h3>Fast Delivery</h3>
+        🚚
 
-            <p>Quick delivery all over India</p>
+        <h3>
 
-        </div>
+            Fast Delivery
 
-        <div class="feature-card">
-
-            🌿
-
-            <h3>100% Pure</h3>
-
-            <p>Fresh and authentic masalas</p>
-
-        </div>
-
-        <div class="feature-card">
-
-            ⭐
-
-            <h3>Premium Quality</h3>
-
-            <p>Trusted by spice lovers</p>
-
-        </div>
-
-    </section>
-
-    <!-- SEARCH -->
-
-    <div class="search-box">
-
-        <input
-            type="text"
-            id="search"
-            placeholder="Search spices..."
-            onkeyup="searchProducts()"
-        >
-
-    </div>
-
-    <!-- FOOTER -->
-     <!-- TESTIMONIALS -->
-      <!-- STATS SECTION -->
-
-<section class="stats-section">
-
-    <div class="stat-box">
-
-        <h2 class="counter" data-target="5000">
-            0
-        </h2>
+        </h3>
 
         <p>
-            Happy Customers
+
+            Quick delivery all over India
+
         </p>
 
     </div>
 
-    <div class="stat-box">
+    <div class="feature-card">
 
-        <h2 class="counter" data-target="1200">
-            0
-        </h2>
+        🌿
+
+        <h3>
+
+            100% Pure
+
+        </h3>
 
         <p>
-            Orders Delivered
+
+            Fresh and authentic masalas
+
         </p>
 
     </div>
 
-    <div class="stat-box">
+    <div class="feature-card">
 
-        <h2 class="counter" data-target="150">
-            0
-        </h2>
+        ⭐
 
-        <p>
-            Premium Products
-        </p>
+        <h3>
 
-    </div>
+            Premium Quality
 
-    <div class="stat-box">
-
-        <h2 class="counter" data-target="10">
-            0
-        </h2>
+        </h3>
 
         <p>
-            Years of Trust
+
+            Trusted by spice lovers
+
         </p>
 
     </div>
 
 </section>
 
+<!-- SEARCH -->
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Search spices..."
+        onkeyup="searchProducts()"
+    >
+
+</div>
+
+<!-- STATS -->
+
+<section class="stats-section">
+
+    <div class="stat-box">
+
+        <h2
+            class="counter"
+            data-target="5000"
+        >
+
+            0
+
+        </h2>
+
+        <p>
+
+            Happy Customers
+
+        </p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h2
+            class="counter"
+            data-target="1200"
+        >
+
+            0
+
+        </h2>
+
+        <p>
+
+            Orders Delivered
+
+        </p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h2
+            class="counter"
+            data-target="150"
+        >
+
+            0
+
+        </h2>
+
+        <p>
+
+            Premium Products
+
+        </p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h2
+            class="counter"
+            data-target="10"
+        >
+
+            0
+
+        </h2>
+
+        <p>
+
+            Years Of Trust
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- TESTIMONIALS -->
+
 <section class="testimonials">
 
     <h2>
+
         💬 What Our Customers Say
+
     </h2>
 
     <div class="testimonial-container">
@@ -296,7 +426,9 @@
         <div class="testimonial-card">
 
             <div class="stars">
+
                 ⭐⭐⭐⭐⭐
+
             </div>
 
             <p>
@@ -307,7 +439,9 @@
             </p>
 
             <h3>
+
                 — Rahul Sharma
+
             </h3>
 
         </div>
@@ -315,7 +449,9 @@
         <div class="testimonial-card">
 
             <div class="stars">
+
                 ⭐⭐⭐⭐⭐
+
             </div>
 
             <p>
@@ -326,7 +462,9 @@
             </p>
 
             <h3>
+
                 — Priya Patel
+
             </h3>
 
         </div>
@@ -334,7 +472,9 @@
         <div class="testimonial-card">
 
             <div class="stars">
+
                 ⭐⭐⭐⭐⭐
+
             </div>
 
             <p>
@@ -345,7 +485,9 @@
             </p>
 
             <h3>
+
                 — Arjun Mehta
+
             </h3>
 
         </div>
@@ -354,19 +496,30 @@
 
 </section>
 
-    <footer>
+<!-- FOOTER -->
 
-        <h2>🌶️ Atharv Masala Stores</h2>
+<footer>
 
-        <p>
-            Bringing Authentic Indian Taste To Every Home.
-        </p>
+    <h2>
 
-        <p>
-            © 2026 Atharv Masala Stores
-        </p>
+        🌶️ Atharv Masala Stores
 
-    </footer>
+    </h2>
+
+    <p>
+
+        Bringing Authentic Indian Taste To Every Home.
+
+    </p>
+
+    <p>
+
+        © 2026 Atharv Masala Stores
+
+    </p>
+
+</footer>
+
 <!-- WHATSAPP BUTTON -->
 
 <a
@@ -378,6 +531,9 @@
     💬
 
 </a>
+
+<!-- LOADER SCRIPT -->
+
 <script>
 
 window.addEventListener("load", () => {
@@ -386,10 +542,36 @@ window.addEventListener("load", () => {
 
 });
 
-</script>
-<!-- TOAST -->
+/* MOBILE SIDEBAR */
 
-<div id="toast"></div>
+function openSidebar(){
+
+    document
+        .getElementById("mobileSidebar")
+        .classList.add("active");
+
+    document
+        .getElementById("sidebarOverlay")
+        .classList.add("active");
+
+}
+
+function closeSidebar(){
+
+    document
+        .getElementById("mobileSidebar")
+        .classList.remove("active");
+
+    document
+        .getElementById("sidebarOverlay")
+        .classList.remove("active");
+
+}
+
+</script>
+
+<script src="script.js"></script>
+
 </body>
 
 </html>

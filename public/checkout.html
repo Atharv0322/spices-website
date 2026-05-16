@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - Atharv Masala Stores</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <a href="index.html">Home</a>
+
+        <a href="products.html">Products</a>
+
+        <a href="about.html">About</a>
+
+    </div>
+
+    <div class="logo-center">
+
+        <span class="logo-icon">🌶️</span>
+
+        <span class="logo-text">
+
+            Atharv Masala
+
+        </span>
+
+    </div>
+
+    <div class="nav-right">
+
+        <a href="cart.html">
+
+            Cart (<span id="cart-count">0</span>)
+
+        </a>
+
+        <a href="login.html">Admin</a>
+
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero-small">
+
+    <div class="hero-content">
+
+        <h1>
+
+            💳 Secure Checkout
+
+        </h1>
+
+        <p>
+
+            Fast • Secure • Trusted Payments
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- CHECKOUT -->
+
+<section class="products-section">
+
+    <div class="checkout-box">
+
+        <h2>
+
+            Customer Details
+
+        </h2>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Full Name"
+        >
+
+        <input
+            type="text"
+            id="phone"
+            placeholder="Phone Number"
+        >
+
+        <textarea
+            id="address"
+            placeholder="Delivery Address"
+        ></textarea>
+
+        <!-- SUMMARY -->
+
+        <div
+            class="summary"
+            id="summary"
+        >
+
+        </div>
+
+        <h2 style="margin-top:30px;">
+
+            Select Payment Method
+
+        </h2>
+
+        <!-- PAYMENT -->
+
+        <div class="payment-box">
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="UPI"
+                >
+
+                <span>
+
+                    📱 UPI Payment
+
+                </span>
+
+            </label>
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Credit Card"
+                >
+
+                <span>
+
+                    💳 Credit / Debit Card
+
+                </span>
+
+            </label>
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Net Banking"
+                >
+
+                <span>
+
+                    🏦 Net Banking
+
+                </span>
+
+            </label>
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Cash on Delivery"
+                >
+
+                <span>
+
+                    💵 Cash On Delivery
+
+                </span>
+
+            </label>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button onclick="placeOrder()">
+
+            Place Order 🚀
+
+        </button>
+
+    </div>
+
+</section>
+
+<script>
+
+/* GET CART */
+
+function getCart(){
+
+    return JSON.parse(
+
+        localStorage.getItem("cart")
+
+    ) || [];
+
+}
+
+/* LOAD SUMMARY */
+
+function loadSummary(){
+
+    const cart = getCart();
+
+    const summary =
+        document.getElementById("summary");
+
+    let total = 0;
+
+    summary.innerHTML = `
+
+        <h3>
+
+            🛒 Order Summary
+
+        </h3>
+
+    `;
+
+    cart.forEach(item => {
+
+        total +=
+            item.price * item.quantity;
+
+        summary.innerHTML += `
+
+            <p>
+
+                ${item.name}
+                × ${item.quantity}
+
+                = ₹${item.price * item.quantity}
+
+            </p>
+
+        `;
+
+    });
+
+    summary.innerHTML += `
+
+        <hr>
+
+        <h2>
+
+            Total: ₹${total}
+
+        </h2>
+
+    `;
+
+}
+
+/* PLACE ORDER */
+
+async function placeOrder(){
+
+    const name =
+        document.getElementById("name").value;
+
+    const phone =
+        document.getElementById("phone").value;
+
+    const address =
+        document.getElementById("address").value;
+
+    const payment =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        )?.value;
+
+    /* VALIDATION */
+
+    if(
+        name === "" ||
+        phone === "" ||
+        address === "" ||
+        !payment
+    ){
+
+        alert("❌ Please fill all details");
+
+        return;
+
+    }
+
+    const cart = getCart();
+
+    if(cart.length === 0){
+
+        alert("❌ Cart is empty");
+
+        return;
+
+    }
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+        total +=
+            item.price * item.quantity;
+
+    });
+
+    /* ORDER DATA */
+
+    const orderData = {
+
+        customerName:name,
+
+        phone:phone,
+
+        address:address,
+
+        paymentMethod:payment,
+
+        items:cart,
+
+        total:total,
+
+        status:"Pending"
+
+    };
+
+    try{
+
+        const res = await fetch(
+
+            "/place-order",
+
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify(orderData)
+
+            }
+
+        );
+
+        const data = await res.json();
+
+        if(data.success){
+
+            alert(
+                "🎉 Order Placed Successfully!"
+            );
+
+            localStorage.removeItem("cart");
+
+            window.location.href =
+                "index.html";
+
+        }
+        else{
+
+            alert(
+                "❌ Failed To Place Order"
+            );
+
+        }
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        alert(
+            "❌ Server Error"
+        );
+
+    }
+
+}
+
+/* INITIAL LOAD */
+
+loadSummary();
+
+</script>
+
+</body>
+
+</html>

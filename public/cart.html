@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cart - Atharv Masala Stores</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<!-- TOAST -->
+
+<div id="toast"></div>
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <a href="index.html">Home</a>
+
+        <a href="products.html">Products</a>
+
+        <a href="about.html">About</a>
+
+    </div>
+
+    <div class="logo-center">
+
+        <span class="logo-icon">🌶️</span>
+
+        <span class="logo-text">
+
+            Atharv Masala
+
+        </span>
+
+    </div>
+
+    <div class="nav-right">
+
+        <a href="cart.html">
+
+    Cart (<span id="cart-count">0</span>)
+
+</a>
+
+        <a href="login.html">Admin</a>
+
+    </div>
+
+</nav>
+
+<!-- PAGE TITLE -->
+
+<section class="cart-hero">
+
+    <h1>
+
+        🛒 Your Shopping Cart
+
+    </h1>
+
+    <p>
+
+        Review your premium spice selections
+
+    </p>
+
+</section>
+
+<!-- CART SECTION -->
+
+<section class="cart-section">
+
+    <div
+        id="cart-items"
+        class="cart-grid"
+    >
+
+    </div>
+
+</section>
+
+<script>
+
+function getCart() {
+
+    return JSON.parse(localStorage.getItem("cart")) || [];
+
+}
+
+function removeItem(index) {
+
+    let cart = getCart();
+
+    cart.splice(index, 1);
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    loadCart();
+
+}
+
+function increaseQuantity(index) {
+
+    let cart = getCart();
+
+    cart[index].quantity += 1;
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    loadCart();
+
+}
+
+function decreaseQuantity(index) {
+
+    let cart = getCart();
+
+    if(cart[index].quantity > 1) {
+
+        cart[index].quantity -= 1;
+
+    }
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    loadCart();
+
+}
+
+function loadCart() {
+
+    const cart = getCart();
+
+    const container =
+        document.getElementById("cart-items");
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+
+        total += item.price * item.quantity;
+
+        container.innerHTML += `
+
+            <div class="cart-card">
+
+                <h2>
+                    ${item.name}
+                </h2>
+
+                <p>
+                    Price: ₹${item.price}
+                </p>
+
+                <p>
+                    Quantity: ${item.quantity}
+                </p>
+
+                <p>
+                    Subtotal:
+                    ₹${item.price * item.quantity}
+                </p>
+
+                <div class="cart-buttons">
+
+                    <button onclick="increaseQuantity(${index})">
+
+                        +
+
+                    </button>
+
+                    <button onclick="decreaseQuantity(${index})">
+
+                        -
+
+                    </button>
+
+                    <button onclick="removeItem(${index})">
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+    container.innerHTML += `
+
+        <div class="cart-total">
+
+            <h2>
+
+                Total: ₹${total}
+
+            </h2>
+
+            <a href="checkout.html">
+
+                <button>
+
+                    Proceed To Checkout 💳
+
+                </button>
+
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+loadCart();
+
+</script>
+
+</body>
+
+</html>

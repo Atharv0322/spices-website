@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Dashboard - Atharv Masala</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#050505;
+    color:white;
+    display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:300px;
+    height:100vh;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border-right:
+        1px solid rgba(255,255,255,0.08);
+
+    padding:30px 22px;
+
+    position:fixed;
+
+    overflow-y:auto;
+
+    backdrop-filter:blur(14px);
+
+}
+
+.sidebar h1{
+
+    font-size:56px;
+    color:#ff9800;
+
+    margin-bottom:45px;
+
+}
+
+.sidebar button{
+
+    width:100%;
+
+    padding:18px;
+
+    margin-top:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    text-align:left;
+
+}
+
+.sidebar button:hover{
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    transform:translateX(6px);
+
+}
+
+/* ACTIVE BUTTON */
+
+.active-btn{
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        ) !important;
+
+    box-shadow:
+        0 10px 25px rgba(255,152,0,0.25);
+
+}
+
+/* SUBMENU */
+
+.submenu{
+
+    display:none;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-top:14px;
+
+    padding-left:12px;
+
+}
+
+.sub-btn{
+
+    width:100%;
+
+    padding:15px 18px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    color:#ccc;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:0.3s;
+
+}
+
+.sub-btn:hover{
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color:white;
+
+}
+
+.active-sub{
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    color:white;
+
+}
+
+/* MAIN */
+
+.main{
+
+    margin-left:300px;
+
+    width:calc(100% - 300px);
+
+    padding:50px;
+
+}
+
+/* SECTION */
+
+.section{
+
+    display:none;
+
+}
+
+.section.active{
+
+    display:block;
+
+}
+
+/* TITLES */
+
+.section h1{
+
+    font-size:64px;
+
+    margin-bottom:45px;
+
+}
+
+/* DASHBOARD STATS */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+
+}
+
+.stat-box{
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    border-radius:30px;
+
+    padding:60px;
+
+    text-align:center;
+
+}
+
+.stat-box h2{
+
+    font-size:58px;
+
+    color:#ff9800;
+
+    margin-bottom:15px;
+
+}
+
+.stat-box p{
+
+    color:#ccc;
+
+    font-size:22px;
+
+}
+
+/* CARD */
+
+.card{
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    border-radius:30px;
+
+    padding:40px;
+
+}
+
+/* FORM */
+
+input,
+textarea{
+
+    width:100%;
+
+    margin-top:18px;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+textarea{
+
+    height:140px;
+
+    resize:none;
+
+}
+
+/* BUTTON */
+
+.action-btn{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+.action-btn:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/* ORDER SECTION */
+
+.orders-section{
+
+    display:none;
+
+}
+
+.orders-section.active-orders{
+
+    display:block;
+
+}
+
+/* ORDERS GRID */
+
+.orders-container{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(380px,1fr));
+
+    gap:35px;
+
+}
+
+/* ORDER CARD */
+
+.order-card{
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    transition:0.4s;
+
+}
+
+.order-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 20px 40px rgba(255,152,0,0.15);
+
+}
+
+.order-card h3{
+
+    color:#ff9800;
+
+    font-size:36px;
+
+    margin-bottom:25px;
+
+}
+
+.order-card p{
+
+    color:#ddd;
+
+    font-size:19px;
+
+    line-height:2;
+
+}
+
+.items{
+
+    margin-top:25px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border-radius:20px;
+
+    padding:20px;
+
+}
+
+.items h4{
+
+    color:#ff9800;
+
+    margin-bottom:12px;
+
+}
+
+.order-card h2{
+
+    color:#4caf50;
+
+    margin-top:30px;
+
+    font-size:48px;
+
+}
+
+/* STATUS */
+
+.status-section{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+.status-select{
+
+    flex:1;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+.status-select option{
+
+    background:#111;
+
+}
+
+.update-btn{
+
+    padding:15px 24px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+<div id="toast"></div>
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h1>
+
+        🌶️ Admin
+
+    </h1>
+
+    <button
+        class="active-btn"
+        onclick="showSection('dashboard', this)"
+    >
+
+        📊 Dashboard
+
+    </button>
+    <button onclick="showSection('manage-products', this)">
+
+    ✏️ Manage Products
+
+    </button>
+    <button
+        onclick="showSection('products', this)"
+    >
+
+        ➕ Add Products
+
+    </button>
+
+    <!-- ORDERS -->
+
+    <div class="menu-group">
+
+        <button
+            id="orders-btn"
+            onclick="toggleOrdersMenu()"
+        >
+
+            📦 Orders
+
+        </button>
+
+        <div
+            class="submenu"
+            id="orders-submenu"
+        >
+
+            <button
+                class="sub-btn active-sub"
+                onclick="showOrderType('pending', this)"
+            >
+
+                🟠 Pending Orders
+
+            </button>
+
+            <button
+                class="sub-btn"
+                onclick="showOrderType('shipped', this)"
+            >
+
+                🚚 Shipped Orders
+
+            </button>
+
+            <button
+                class="sub-btn"
+                onclick="showOrderType('delivered', this)"
+            >
+
+                ✅ Delivered Orders
+
+            </button>
+
+            <button
+                class="sub-btn"
+                onclick="showOrderType('cancelled', this)"
+            >
+
+                ❌ Cancelled Orders
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <button onclick="logout()">
+
+        🔓 Logout
+
+    </button>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- DASHBOARD -->
+
+<div
+    id="dashboard"
+    class="section active"
+>
+
+    <h1>
+
+        📊 Dashboard Overview
+
+    </h1>
+
+    <div class="stats">
+
+        <div class="stat-box">
+
+            <h2 id="total-orders">
+
+                0
+
+            </h2>
+
+            <p>
+
+                Total Orders
+
+            </p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2 id="total-products">
+
+                0
+
+            </h2>
+
+            <p>
+
+                Products
+
+            </p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2 id="revenue">
+
+                ₹0
+
+            </h2>
+
+            <p>
+
+                Revenue
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<div
+    id="products"
+    class="section"
+>
+
+    <h1>
+
+        ➕ Add Product
+
+    </h1>
+
+    <div class="manage-card">
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Product Name"
+        >
+
+        <textarea
+            id="description"
+            placeholder="Description"
+        ></textarea>
+
+        <input
+            type="number"
+            id="price"
+            placeholder="Enter Price (₹)"
+        >
+
+        <input
+            type="text"
+            id="image"
+            placeholder="Image URL"
+        >
+
+        <input
+            type="text"
+            id="badge"
+            placeholder="Badge"
+        >
+
+        <button
+            class="action-btn"
+            onclick="addProduct()"
+        >
+
+            Add Product 🚀
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ORDERS -->
+
+<div
+    id="orders"
+    class="section"
+>
+
+    <h1>
+
+        📦 Orders Management
+
+    </h1>
+
+    <!-- PENDING -->
+
+    <div
+        id="pending"
+        class="orders-section active-orders"
+    >
+
+        <div
+            class="orders-container"
+            id="pending-container"
+        >
+
+        </div>
+
+    </div>
+
+    <!-- SHIPPED -->
+
+    <div
+        id="shipped"
+        class="orders-section"
+    >
+
+        <div
+            class="orders-container"
+            id="shipped-container"
+        >
+
+        </div>
+
+    </div>
+
+    <!-- DELIVERED -->
+
+    <div
+        id="delivered"
+        class="orders-section"
+    >
+
+        <div
+            class="orders-container"
+            id="delivered-container"
+        >
+
+        </div>
+
+    </div>
+
+    <!-- CANCELLED -->
+
+    <div
+        id="cancelled"
+        class="orders-section"
+    >
+
+        <div
+            class="orders-container"
+            id="cancelled-container"
+        >
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =======================================
+     MANAGE PRODUCTS
+======================================= -->
+
+<div
+    id="manage-products"
+    class="section"
+>
+
+    <div class="manage-header">
+
+        <h1>
+
+            ✏️ Manage Products
+
+        </h1>
+
+        <p>
+
+            Update, edit and manage all spice products
+
+        </p>
+
+    </div>
+
+    <div
+        id="manage-products-container"
+        class="manage-products-grid"
+    >
+
+    </div>
+
+</div>
+
+<style>
+
+/* =======================================
+   MANAGE PRODUCTS UI
+======================================= */
+
+.manage-header{
+
+    margin-bottom:40px;
+
+}
+
+.manage-header h1{
+
+    font-size:52px;
+
+    color:white;
+
+    margin-bottom:10px;
+
+}
+
+.manage-header p{
+
+    color:#aaa;
+
+    font-size:18px;
+
+}
+
+/* GRID */
+
+.manage-products-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(420px,1fr));
+
+    gap:35px;
+
+}
+
+/* CARD */
+
+.manage-product-card{
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.06),
+            rgba(255,255,255,0.03)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    transition:0.4s;
+
+    backdrop-filter:blur(14px);
+
+}
+
+.manage-product-card:hover{
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 20px 40px rgba(255,152,0,0.12);
+
+}
+
+/* IMAGE */
+
+.manage-image{
+
+    width:100%;
+
+    height:250px;
+
+    overflow:hidden;
+
+}
+
+.manage-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+/* CONTENT */
+
+.manage-details{
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+.manage-details h2{
+
+    font-size:34px;
+
+    color:#ff9800;
+
+}
+
+/* INPUTS */
+
+.manage-details input,
+.manage-details textarea{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+}
+
+.manage-details textarea{
+
+    min-height:110px;
+
+    resize:none;
+
+}
+
+/* PRICE + BADGE */
+
+.manage-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+}
+
+/* BUTTONS */
+
+.manage-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:10px;
+
+}
+
+.update-product-btn{
+
+    flex:1;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.delete-product-btn{
+
+    flex:1;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff1744,
+            #d50000
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .manage-products-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .manage-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .manage-buttons{
+
+        flex-direction:column;
+
+    }
+
+}
+#toast{
+
+    position:fixed;
+
+    top:-100px;
+
+    right:30px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    color:white;
+
+    padding:16px 24px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    z-index:99999;
+
+    transition:0.4s;
+
+    box-shadow:
+        0 10px 25px rgba(255,152,0,0.3);
+
+}
+</style>
+<script>
+
+/* LOGIN CHECK */
+
+if(localStorage.getItem("adminLoggedIn") !== "true"){
+
+    window.location.href = "login.html";
+
+}
+
+/* SIDEBAR NAVIGATION */
+
+function showSection(id, button){
+
+    document
+        .querySelectorAll(".section")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+    document
+        .querySelectorAll(".sidebar button")
+        .forEach(btn => {
+
+            btn.classList.remove("active-btn");
+
+        });
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    if(button){
+
+        button.classList.add("active-btn");
+
+    }
+
+}
+
+/* TOGGLE MENU */
+
+function toggleOrdersMenu(){
+
+    const submenu =
+        document.getElementById("orders-submenu");
+
+    showSection(
+        "orders",
+        document.getElementById("orders-btn")
+    );
+
+    if(
+        submenu.style.display === "flex"
+    ){
+
+        submenu.style.display = "none";
+
+    }
+    else{
+
+        submenu.style.display = "flex";
+
+    }
+
+}
+
+/* SHOW ORDER TYPE */
+
+function showOrderType(type, button){
+
+    document
+        .querySelectorAll(".orders-section")
+        .forEach(section => {
+
+            section.classList.remove("active-orders");
+
+        });
+
+    document
+        .querySelectorAll(".sub-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active-sub");
+
+        });
+
+    document
+        .getElementById(type)
+        .classList.add("active-orders");
+
+    button.classList.add("active-sub");
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+    localStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
+
+}
+/* ADD PRODUCT */
+
+async function addProduct(){
+
+    const name =
+        document.getElementById("name").value;
+
+    const description =
+        document.getElementById("description").value;
+
+    const price =
+        document.getElementById("price").value;
+
+    const image =
+        document.getElementById("image").value;
+
+    const badge =
+        document.getElementById("badge").value;
+
+    /* VALIDATION */
+
+    if(
+        !name ||
+        !description ||
+        !price ||
+        !image
+    ){
+
+        alert("❌ Fill all fields");
+
+        return;
+
+    }
+
+    try{
+
+        const res = await fetch(
+
+            "/add-product",
+
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:JSON.stringify({
+
+                    name:name,
+
+                    description:description,
+
+                    price:Number(price),
+
+                    image:image,
+
+                    badge:badge
+
+                })
+
+            }
+
+        );
+
+        const data = await res.json();
+
+        if(data.success){
+
+            document.getElementById("name").value = "";
+
+            document.getElementById("description").value = "";
+
+            document.getElementById("price").value = "";
+
+            document.getElementById("image").value = "";
+
+            document.getElementById("badge").value = "";
+
+        }
+        else{
+
+            alert("❌ Failed To Add Product");
+
+        }
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        alert("❌ Server Error");
+
+    }
+
+}
+/* LOAD ORDERS */
+
+async function loadOrders(){
+
+    const res = await fetch("/orders");
+
+    const orders = await res.json();
+
+    const pendingContainer =
+        document.getElementById("pending-container");
+
+    const shippedContainer =
+        document.getElementById("shipped-container");
+
+    const deliveredContainer =
+        document.getElementById("delivered-container");
+
+    const cancelledContainer =
+        document.getElementById("cancelled-container");
+
+    /* CLEAR */
+
+    pendingContainer.innerHTML = "";
+
+    shippedContainer.innerHTML = "";
+
+    deliveredContainer.innerHTML = "";
+
+    cancelledContainer.innerHTML = "";
+
+    /* STATS */
+
+    document.getElementById(
+        "total-orders"
+    ).innerText = orders.length;
+
+    let revenue = 0;
+
+    orders.forEach(order => {
+
+        revenue += order.total;
+
+    });
+
+    document.getElementById(
+        "revenue"
+    ).innerText = "₹" + revenue;
+
+    /* SHOW ORDERS */
+
+    orders.reverse().forEach(order => {
+
+        let itemsHTML = "";
+
+    (order.items || []).forEach(item => {
+
+            itemsHTML += `
+
+                <p>
+
+                    ${item.name} × ${item.quantity}
+                    = ₹${item.price * item.quantity}
+
+                </p>
+
+            `;
+
+        });
+
+        const orderHTML = `
+
+            <div class="order-card">
+
+                <h3>
+
+                    👤 ${order.customerName}
+
+                </h3>
+
+                <p>
+
+                    📞 ${order.phone}
+
+                </p>
+
+                <p>
+
+                    🏠 ${order.address}
+
+                </p>
+
+                <p>
+
+                    💳 ${order.paymentMethod}
+
+                </p>
+
+                <div class="items">
+
+                    <h4>
+
+                        🛒 Items Ordered
+
+                    </h4>
+
+                    ${itemsHTML}
+
+                </div>
+
+                <h2>
+
+                    ₹${order.total}
+
+                </h2>
+
+                <div class="status-section">
+
+                    <select
+                        id="status-${order._id}"
+                        class="status-select"
+                    >
+
+                        <option
+                            value="Pending"
+                            ${order.status === "Pending" ? "selected" : ""}
+                        >
+
+                            Pending
+
+                        </option>
+
+                        <option
+                            value="Shipped"
+                            ${order.status === "Shipped" ? "selected" : ""}
+                        >
+
+                            Shipped
+
+                        </option>
+
+                        <option
+                            value="Delivered"
+                            ${order.status === "Delivered" ? "selected" : ""}
+                        >
+
+                            Delivered
+
+                        </option>
+
+                        <option
+                            value="Cancelled"
+                            ${order.status === "Cancelled" ? "selected" : ""}
+                        >
+
+                            Cancelled
+
+                        </option>
+
+                    </select>
+
+                    <button
+                        class="update-btn"
+                        onclick="updateStatus('${order._id}')"
+                    >
+
+                        Update
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        /* STATUS WISE DISPLAY */
+
+        if(
+            order.status === "Pending"
+            || !order.status
+        ){
+
+            pendingContainer.innerHTML += orderHTML;
+
+        }
+
+        else if(
+            order.status === "Shipped"
+        ){
+
+            shippedContainer.innerHTML += orderHTML;
+
+        }
+
+        else if(
+            order.status === "Delivered"
+        ){
+
+            deliveredContainer.innerHTML += orderHTML;
+
+        }
+
+        else if(
+            order.status === "Cancelled"
+        ){
+
+            cancelledContainer.innerHTML += orderHTML;
+
+        }
+
+    });
+
+}
+
+/* UPDATE STATUS */
+
+async function updateStatus(orderId){
+
+    const status =
+        document.getElementById(
+            `status-${orderId}`
+        ).value;
+
+    await fetch(
+
+        `/update-order-status/${orderId}`,
+
+        {
+
+            method:"PUT",
+
+            headers:{
+
+                "Content-Type":"application/json"
+
+            },
+
+            body:JSON.stringify({
+
+                status:status
+
+            })
+
+        }
+
+    );
+
+    loadOrders();
+
+}
+/* LOAD PRODUCTS */
+
+async function loadManageProducts(){
+
+    const res =
+        await fetch("/products");
+
+    const products =
+        await res.json();
+
+    const container =
+        document.getElementById(
+            "manage-products-container"
+        );
+
+    container.innerHTML = "";
+
+    products.forEach(product => {
+
+        container.innerHTML += `
+
+            <div class="manage-product-card">
+
+                <!-- IMAGE -->
+
+                <div class="manage-image">
+
+                    <img
+                        src="${product.image}"
+                        onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'"
+                    >
+
+                </div>
+
+                <!-- DETAILS -->
+
+                <div class="manage-details">
+
+                    <h2>
+
+                        ${product.name}
+
+                    </h2>
+
+                    <textarea
+                        id="desc-${product._id}"
+                    >${product.description}</textarea>
+
+                    <input
+                        type="text"
+                        id="image-${product._id}"
+                        value="${product.image}"
+                        placeholder="Image URL"
+                    >
+
+                    <div class="manage-row">
+
+                        <input
+                            type="text"
+                            id="name-${product._id}"
+                            value="${product.name}"
+                            placeholder="Product Name"
+                        >
+
+                        <input
+                            type="number"
+                            id="price-${product._id}"
+                            value="${product.price}"
+                            placeholder="Price"
+                        >
+
+                    </div>
+
+                    <input
+                        type="text"
+                        id="badge-${product._id}"
+                        value="${product.badge}"
+                        placeholder="Badge"
+                    >
+
+                    <div class="manage-buttons">
+
+                        <button
+                            class="update-product-btn"
+                            onclick="updateProduct('${product._id}')"
+                        >
+
+                            ✏️ Update
+
+                        </button>
+
+                        <button
+                            class="delete-product-btn"
+                            onclick="deleteProduct('${product._id}')"
+                        >
+
+                            ❌ Delete
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* UPDATE PRODUCT */
+
+async function updateProduct(id){
+
+    const product = {
+
+        name:
+            document.getElementById(
+
+                `name-${id}`
+
+            ).value,
+
+        description:
+            document.getElementById(
+
+                `desc-${id}`
+
+            ).value,
+
+        price:Number(
+
+            document.getElementById(
+
+                `price-${id}`
+
+            ).value
+
+        ),
+
+        image:
+            document.getElementById(
+
+                `image-${id}`
+
+            ).value,
+
+        badge:
+            document.getElementById(
+
+                `badge-${id}`
+
+            ).value
+
+    };
+
+    await fetch(
+
+        `/update-product/${id}`,
+
+        {
+
+            method:"PUT",
+
+            headers:{
+
+                "Content-Type":
+                    "application/json"
+
+            },
+
+            body:JSON.stringify(product)
+
+        }
+
+    );
+
+
+    loadManageProducts();
+
+}
+
+/* DELETE PRODUCT */
+
+async function deleteProduct(id){
+
+    const confirmDelete =
+        confirm(
+
+            "Delete Product?"
+
+        );
+
+    if(!confirmDelete){
+
+        return;
+
+    }
+
+    await fetch(
+
+        `/delete-product/${id}`,
+
+        {
+
+            method:"DELETE"
+
+        }
+
+    );
+    loadManageProducts();
+
+}
+/* INITIAL LOAD */
+
+loadOrders();
+loadManageProducts();
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.style.opacity = "1";
+
+    toast.style.top = "30px";
+
+    setTimeout(()=>{
+
+        toast.style.opacity = "0";
+
+        toast.style.top = "-100px";
+
+    },2000);
+
+}
+</script>
+
+</body>
+
+</html>

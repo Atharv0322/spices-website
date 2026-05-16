@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Admin Login - Atharv Masala
+
+    </title>
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+<style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(255,152,0,0.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #111
+        );
+
+    overflow:hidden;
+
+    color:white;
+
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+#toast{
+
+    position:fixed;
+
+    top:-100px;
+
+    right:30px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    color:white;
+
+    padding:16px 24px;
+
+    border-radius:16px;
+
+    font-weight:600;
+
+    z-index:99999;
+
+    transition:0.4s;
+
+    box-shadow:
+        0 10px 25px rgba(255,152,0,0.3);
+
+}
+
+/* =========================================
+   BACKGROUND GLOW
+========================================= */
+
+.bg-glow{
+
+    position:absolute;
+
+    width:500px;
+
+    height:500px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,152,0,0.25),
+            transparent
+        );
+
+    filter:blur(90px);
+
+    top:-150px;
+
+    left:-150px;
+
+}
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    width:100%;
+
+    height:90px;
+
+    background:
+        rgba(0,0,0,0.7);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 60px;
+
+    z-index:999;
+
+}
+
+.nav-left,
+.nav-right{
+
+    display:flex;
+
+    gap:30px;
+
+}
+
+.navbar a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:18px;
+
+    transition:0.3s;
+
+}
+
+.navbar a:hover{
+
+    color:#ff9800;
+
+}
+
+.logo-center{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.logo-icon{
+
+    font-size:42px;
+
+}
+
+.logo-text{
+
+    font-size:38px;
+
+    font-weight:700;
+
+}
+
+/* =========================================
+   LOGIN WRAPPER
+========================================= */
+
+.login-wrapper{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:120px 20px 20px;
+
+}
+
+/* =========================================
+   LOGIN BOX
+========================================= */
+
+.login-box{
+
+    width:100%;
+
+    max-width:450px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:35px;
+
+    padding:50px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.45);
+
+    position:relative;
+
+    overflow:hidden;
+
+    animation:fadeIn 0.8s ease;
+
+}
+
+/* GLOW */
+
+.login-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,152,0,0.25),
+            transparent
+        );
+
+    top:-80px;
+
+    right:-80px;
+
+    filter:blur(50px);
+
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.login-box h1{
+
+    font-size:42px;
+
+    margin-bottom:12px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.login-box p{
+
+    color:#bbb;
+
+    margin-bottom:35px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.input-box{
+
+    width:100%;
+
+    padding:18px;
+
+    margin-top:20px;
+
+    border-radius:18px;
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:0.3s;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.input-box:focus{
+
+    border:
+        1px solid #ff9800;
+
+    box-shadow:
+        0 0 20px rgba(255,152,0,0.3);
+
+}
+
+.input-box::placeholder{
+
+    color:#bbb;
+
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.login-btn{
+
+    width:100%;
+
+    margin-top:30px;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff9800,
+            #ff5722
+        );
+
+    border:none;
+
+    color:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 15px 30px rgba(255,152,0,0.3);
+
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+
+        padding:0 20px;
+
+    }
+
+    .logo-text{
+
+        font-size:26px;
+
+    }
+
+    .nav-left{
+
+        display:none;
+
+    }
+
+    .login-box{
+
+        padding:35px 25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+<!-- BACKGROUND -->
+
+<div class="bg-glow"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <a href="index.html">
+
+            Home
+
+        </a>
+
+        <a href="products.html">
+
+            Products
+
+        </a>
+
+        <a href="about.html">
+
+            About
+
+        </a>
+
+    </div>
+
+    <div class="logo-center">
+
+        <span class="logo-icon">
+
+            🌶️
+
+        </span>
+
+        <span class="logo-text">
+
+            Atharv Masala
+
+        </span>
+
+    </div>
+
+    <div class="nav-right">
+
+        <a href="cart.html">
+
+            Cart (<span id="cart-count">0</span>)
+
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- LOGIN -->
+
+<div class="login-wrapper">
+
+    <div class="login-box">
+
+        <h1>
+
+            🔐 Admin Login
+
+        </h1>
+
+        <p>
+
+            Secure access to your store dashboard
+
+        </p>
+
+        <input
+            class="input-box"
+            type="text"
+            id="username"
+            placeholder="Enter Username"
+        >
+
+        <input
+            class="input-box"
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+        >
+
+        <button
+            class="login-btn"
+            onclick="login()"
+        >
+
+            Login 🚀
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.style.top = "30px";
+
+    setTimeout(()=>{
+
+        toast.style.top = "-100px";
+
+    },2000);
+
+}
+
+/* =========================================
+   LOGIN
+========================================= */
+
+function login(){
+
+    const username =
+        document.getElementById("username").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    if(
+
+        username === "atharv123"
+
+        &&
+
+        password === "123456"
+
+    ){
+
+        localStorage.setItem(
+
+            "adminLoggedIn",
+
+            "true"
+
+        );
+
+        showToast(
+
+            "✅ Login Successful"
+
+        );
+
+        setTimeout(()=>{
+
+            window.location.href =
+                "admin-dashboard.html";
+
+        },1000);
+
+    }
+    else{
+
+        showToast(
+
+            "❌ Invalid Username or Password"
+
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

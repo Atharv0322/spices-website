@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Atharv Masala Stores</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>  
+    <!-- TOAST -->
+
+<div id="toast"></div>
+<!-- LOADER -->
+
+<div class="loader-wrapper" id="loader">
+
+    <div class="loader"></div>
+
+</div>
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+    <div class="nav-left">
+
+    <a href="index.html">Home</a>
+
+    <a href="products.html">Products</a>
+
+    <a href="about.html">About</a>
+
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+
+          ☰
+
+    </div>
+    <div class="nav-right">
+
+        <a href="cart.html">
+
+    Cart (<span id="cart-count">0</span>)
+
+</a>
+
+        <a href="login.html">Admin</a>
+
+    </div>
+
+</nav>
+
+    <!-- HERO SECTION -->
+
+   <section class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <div class="premium-logo">
+
+            <div class="logo-icon-big">
+                🌶️
+            </div>
+
+            <h1 class="brand-title">
+
+                Atharv <span>Masala</span>
+
+            </h1>
+
+            <div class="hero-line"></div>
+
+            <p class="premium-text">
+
+                PREMIUM INDIAN SPICES
+
+            </p>
+
+            <p class="hero-subtitle">
+
+                Pure • Organic • Authentic
+
+            </p>
+
+            <a href="products.html">
+
+                <button>
+
+                    Shop Now
+
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- FEATURES -->
+     <!-- TRENDING PRODUCTS -->
+
+<section class="trending-section">
+
+    <h2>
+        🔥 Trending Masalas
+    </h2>
+
+    <div class="trending-container">
+
+        <div class="trending-card">
+
+            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="trending-content">
+
+                <h3>
+                    Garam Masala
+                </h3>
+
+                <p>
+                    Rich aroma & authentic Indian flavor
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="trending-card">
+
+            <img src="https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="trending-content">
+
+                <h3>
+                    Red Chilli Powder
+                </h3>
+
+                <p>
+                    Premium spicy taste for every dish
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="trending-card">
+
+         <img src="https://www.shriradhespices.in/storage/sliders/ehl-passugg-blog-kurkuma-titelbild-001.jpg">
+
+            <div class="trending-content">
+
+                <h3>
+                    Turmeric Powder
+                </h3>
+
+                <p>
+                    Pure organic haldi with natural color
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <section class="features">
+
+        <div class="feature-card">
+
+            🚚
+
+            <h3>Fast Delivery</h3>
+
+            <p>Quick delivery all over India</p>
+
+        </div>
+
+        <div class="feature-card">
+
+            🌿
+
+            <h3>100% Pure</h3>
+
+            <p>Fresh and authentic masalas</p>
+
+        </div>
+
+        <div class="feature-card">
+
+            ⭐
+
+            <h3>Premium Quality</h3>
+
+            <p>Trusted by spice lovers</p>
+
+        </div>
+
+    </section>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search spices..."
+            onkeyup="searchProducts()"
+        >
+
+    </div>
+
+    <!-- FOOTER -->
+     <!-- TESTIMONIALS -->
+      <!-- STATS SECTION -->
+
+<section class="stats-section">
+
+    <div class="stat-box">
+
+        <h2 class="counter" data-target="5000">
+            0
+        </h2>
+
+        <p>
+            Happy Customers
+        </p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h2 class="counter" data-target="1200">
+            0
+        </h2>
+
+        <p>
+            Orders Delivered
+        </p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h2 class="counter" data-target="150">
+            0
+        </h2>
+
+        <p>
+            Premium Products
+        </p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h2 class="counter" data-target="10">
+            0
+        </h2>
+
+        <p>
+            Years of Trust
+        </p>
+
+    </div>
+
+</section>
+
+<section class="testimonials">
+
+    <h2>
+        💬 What Our Customers Say
+    </h2>
+
+    <div class="testimonial-container">
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+
+                "Best quality masalas I’ve ever used.
+                Authentic taste and amazing aroma!"
+
+            </p>
+
+            <h3>
+                — Rahul Sharma
+            </h3>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+
+                "Packaging and quality are premium.
+                My family loved the spices!"
+
+            </p>
+
+            <h3>
+                — Priya Patel
+            </h3>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+
+                "Feels like restaurant-quality masala.
+                Highly recommended."
+
+            </p>
+
+            <h3>
+                — Arjun Mehta
+            </h3>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <footer>
+
+        <h2>🌶️ Atharv Masala Stores</h2>
+
+        <p>
+            Bringing Authentic Indian Taste To Every Home.
+        </p>
+
+        <p>
+            © 2026 Atharv Masala Stores
+        </p>
+
+    </footer>
+<!-- WHATSAPP BUTTON -->
+
+<a
+    href="https://wa.me/918652841260"
+    class="whatsapp-btn"
+    target="_blank"
+>
+
+    💬
+
+</a>
+<script>
+
+window.addEventListener("load", () => {
+
+    document.getElementById("loader").style.display = "none";
+
+});
+
+</script>
+<!-- TOAST -->
+
+<div id="toast"></div>
+</body>
+
+</html>

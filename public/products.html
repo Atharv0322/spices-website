@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products - Atharv Masala Stores</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<!-- TOAST -->
+
+<div id="toast"></div>
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+
+            <a href="index.html">Home</a>
+
+            <a href="products.html">Products</a>
+
+            <a href="about.html">About</a>
+
+        </div>
+
+        <div class="logo-center">
+
+            <span class="logo-icon">🌶️</span>
+
+            <span class="logo-text">
+
+                Atharv Masala
+
+            </span>
+
+        </div>
+
+        <div class="nav-right">
+
+            <a href="cart.html">
+
+    Cart (<span id="cart-count">0</span>)
+
+</a>
+
+            <a href="login.html">Admin</a>
+
+        </div>
+
+    </nav>
+
+    <!-- PAGE HERO -->
+
+    <section class="page-hero">
+
+        <h1>
+
+            🌶️ Premium Spice Collection
+
+        </h1>
+
+        <p>
+
+            Explore authentic Indian spices & masalas
+
+        </p>
+
+    </section>
+<!-- CATEGORY FILTERS -->
+
+<div class="category-bar">
+
+    <button onclick="filterProducts('all')">
+
+        All
+
+    </button>
+
+    <button onclick="filterProducts('Chicken Masala')">
+
+        Chicken Masala
+
+    </button>
+
+    <button onclick="filterProducts('Fish Masala')">
+
+        Fish Masala
+
+    </button>
+
+    <button onclick="filterProducts('Mutton Masala')">
+
+        Mutton Masala
+
+    </button>
+
+    <button onclick="filterProducts('Turmeric')">
+
+        Turmeric
+
+    </button>
+
+    <button onclick="filterProducts('Chilli Powder')">
+
+        Chilli Powder
+
+    </button>
+
+    <button onclick="filterProducts('Garam Masala')">
+
+        Garam Masala
+
+    </button>
+
+</div>
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search spices..."
+            onkeyup="searchProducts()"
+        >
+
+    </div>
+
+    <!-- PRODUCTS -->
+
+    <div class="page-container">
+
+    <section
+        id="products"
+        class="products"
+    >
+
+    </section>
+
+</div>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <h2>
+
+            🌶️ Atharv Masala Stores
+
+        </h2>
+
+        <p>
+
+            Authentic Indian Taste Delivered Fresh
+
+        </p>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

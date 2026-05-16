@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Product - Atharv Masala Stores</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            margin: 0;
+        }
+
+        header {
+            background: #c0392b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <!-- TOAST -->
+
+<div id="toast"></div>
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <a href="index.html">Home</a>
+
+        <a href="products.html">Products</a>
+
+        <a href="about.html">About</a>
+
+        
+    </div>
+
+    <div class="logo-center">
+
+        <span class="logo-icon">🌶️</span>
+
+        <span class="logo-text">
+
+            Atharv Masala
+
+        </span>
+
+    </div>
+
+    <div class="nav-right">
+
+       <a href="cart.html">
+
+    Cart (<span id="cart-count">0</span>)
+
+</a>
+
+    </div>
+
+</nav>
+<header>
+
+    <h1>➕ Add Product</h1>
+
+    <button onclick="window.location.href='index.html'">
+        ⬅ Back to Home
+    </button>
+
+</header>
+
+<div class="container">
+
+    <input id="name" placeholder="Product Name">
+
+    <input id="price" placeholder="Price">
+
+    <input id="desc" placeholder="Description">
+
+    <input id="image" placeholder="Image URL">
+
+    <button onclick="addProduct()">
+        Add Product
+    </button>
+
+</div>
+
+<script>
+
+async function addProduct() {
+
+    const name = document.getElementById("name").value;
+
+    const price = document.getElementById("price").value;
+
+    const description = document.getElementById("desc").value;
+
+    const image = document.getElementById("image").value;
+
+    await fetch("/add-product", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify({
+
+            name,
+
+            price,
+
+            description,
+
+            image
+
+        })
+
+    });
+
+    alert("✅ Product Added Successfully");
+
+}
+
+</script>
+
+</body>
+
+</html>

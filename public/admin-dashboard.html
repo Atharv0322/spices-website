@@ -1484,71 +1484,79 @@ async function loadOrders(){
 
                 <div class="status-section">
 
-                    <select
-                        id="status-${order._id}"
-                        class="status-select"
-                    >
+                 <div class="status-section">
 
-                       <select
-    id="status-${order._id}"
-    class="status-select"
->
-
-    <option
-        value="Order Placed"
-        ${order.status === "Order Placed" ? "selected" : ""}
+    <select
+        id="status-${order._id}"
+        class="status-select"
     >
 
-        Order Placed
+        <option
+            value="Order Placed"
+            ${order.status === "Order Placed" ? "selected" : ""}
+        >
 
-    </option>
+            📦 Order Placed
 
-    <option
-        value="Preparing"
-        ${order.status === "Preparing" ? "selected" : ""}
+        </option>
+
+        <option
+            value="Preparing"
+            ${order.status === "Preparing" ? "selected" : ""}
+        >
+
+            👨‍🍳 Preparing
+
+        </option>
+
+        <option
+            value="Packed"
+            ${order.status === "Packed" ? "selected" : ""}
+        >
+
+            📦 Packed
+
+        </option>
+
+        <option
+            value="Out For Delivery"
+            ${order.status === "Out For Delivery" ? "selected" : ""}
+        >
+
+            🚚 Out For Delivery
+
+        </option>
+
+        <option
+            value="Delivered"
+            ${order.status === "Delivered" ? "selected" : ""}
+        >
+
+            ✅ Delivered
+
+        </option>
+
+        <option
+            value="Cancelled"
+            ${order.status === "Cancelled" ? "selected" : ""}
+        >
+
+            ❌ Cancelled
+
+        </option>
+
+    </select>
+
+    <button
+        class="update-btn"
+        onclick="updateStatus('${order._id}')"
     >
 
-        Preparing
+        Update
 
-    </option>
+    </button>
 
-    <option
-        value="Packed"
-        ${order.status === "Packed" ? "selected" : ""}
-    >
-
-        Packed
-
-    </option>
-
-    <option
-        value="Out For Delivery"
-        ${order.status === "Out For Delivery" ? "selected" : ""}
-    >
-
-        Out For Delivery
-
-    </option>
-
-    <option
-        value="Delivered"
-        ${order.status === "Delivered" ? "selected" : ""}
-    >
-
-        Delivered
-
-    </option>
-
-    <option
-        value="Cancelled"
-        ${order.status === "Cancelled" ? "selected" : ""}
-    >
-
-        Cancelled
-
-    </option>
-
-</select>
+</div>
                     <button
                         class="update-btn"
                         onclick="updateStatus('${order._id}')"

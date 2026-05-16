@@ -3151,3 +3151,179 @@ button:hover {
     }
 
 }
+@media screen and (max-width: 768px){
+
+/* NAVBAR */
+
+.navbar{
+
+    flex-direction: column;
+
+    padding: 15px;
+
+    gap: 15px;
+
+}
+
+.nav-left,
+.nav-right{
+
+    display: flex;
+
+    gap: 20px;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+}
+
+.logo-center{
+
+    order: -1;
+
+}
+
+.logo-text{
+
+    font-size: 32px;
+
+}
+
+.navbar a{
+
+    font-size: 18px;
+
+}
+
+/* HERO */
+
+.hero{
+
+    height: auto;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+}
+
+.hero-content h1{
+
+    font-size: 48px;
+
+    line-height: 1.2;
+
+}
+
+.hero-content p{
+
+    font-size: 20px;
+
+}
+
+.hero button{
+
+    width: 100%;
+
+    max-width: 300px;
+
+}
+
+/* PRODUCTS */
+
+.products{
+
+    grid-template-columns: 1fr;
+
+    padding: 20px;
+
+}
+
+.card{
+
+    width: 100%;
+
+}
+
+/* SEARCH */
+
+.search-box input{
+
+    width: 90%;
+
+}
+
+/* CATEGORY BUTTONS */
+
+.category-bar{
+
+    overflow-x: auto;
+
+    white-space: nowrap;
+
+    padding: 10px;
+
+}
+
+.category-bar button{
+
+    margin: 5px;
+
+}
+
+/* ADMIN PANEL */
+
+.sidebar{
+
+    width: 100%;
+
+    position: relative;
+
+    height: auto;
+
+}
+
+.main-content{
+
+    margin-left: 0;
+
+    width: 100%;
+
+    padding: 20px;
+
+}
+
+/* MANAGE PRODUCTS */
+
+.manage-products-grid{
+
+    grid-template-columns: 1fr;
+
+}
+
+.manage-card{
+
+    width: 100%;
+
+}
+
+.manage-card img{
+
+    height: 220px;
+
+}
+
+/* CHECKOUT */
+
+.checkout-box{
+
+    width: 95%;
+
+    padding: 20px;
+
+}
+
+}

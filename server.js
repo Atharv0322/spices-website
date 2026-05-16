@@ -32,21 +32,11 @@ app.use(express.static("public"));
 
 mongoose.connect(
 
-    "mongodb://127.0.0.1:27017/spicesDB"
+"mongodb+srv://atharv0322:atharv123@cluster0.h5zudqr.mongodb.net/spicesDB?retryWrites=true&w=majority&appName=Cluster0"
 
 )
-
-.then(() => {
-
-    console.log("✅ MongoDB Connected");
-
-})
-
-.catch(err => {
-
-    console.log(err);
-
-});
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));    
 
 /* PRODUCT SCHEMA */
 

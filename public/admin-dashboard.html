@@ -570,48 +570,66 @@ textarea{
 
         </button>
 
-        <div
-            class="submenu"
-            id="orders-submenu"
-        >
+       <div
+    class="submenu"
+    id="orders-submenu"
+>
 
-            <button
-                class="sub-btn active-sub"
-                onclick="showOrderType('pending', this)"
-            >
+    <button
+        class="sub-btn active-sub"
+        onclick="showOrderType('orderplaced', this)"
+    >
 
-                🟠 Pending Orders
+        📦 Order Placed
 
-            </button>
+    </button>
 
-            <button
-                class="sub-btn"
-                onclick="showOrderType('shipped', this)"
-            >
+    <button
+        class="sub-btn"
+        onclick="showOrderType('preparing', this)"
+    >
 
-                🚚 Shipped Orders
+        👨‍🍳 Preparing
 
-            </button>
+    </button>
 
-            <button
-                class="sub-btn"
-                onclick="showOrderType('delivered', this)"
-            >
+    <button
+        class="sub-btn"
+        onclick="showOrderType('packed', this)"
+    >
 
-                ✅ Delivered Orders
+        📦 Packed
 
-            </button>
+    </button>
 
-            <button
-                class="sub-btn"
-                onclick="showOrderType('cancelled', this)"
-            >
+    <button
+        class="sub-btn"
+        onclick="showOrderType('delivery', this)"
+    >
 
-                ❌ Cancelled Orders
+        🚚 Out For Delivery
 
-            </button>
+    </button>
 
-        </div>
+    <button
+        class="sub-btn"
+        onclick="showOrderType('delivered', this)"
+    >
+
+        ✅ Delivered
+
+    </button>
+
+    <button
+        class="sub-btn"
+        onclick="showOrderType('cancelled', this)"
+    >
+
+        ❌ Cancelled
+
+    </button>
+
+</div>
 
     </div>
 
@@ -764,69 +782,101 @@ textarea{
 
     </h1>
 
-    <!-- PENDING -->
+    <!-- ORDER PLACED -->
+
+<div
+    id="orderplaced"
+    class="orders-section active-orders"
+>
 
     <div
-        id="pending"
-        class="orders-section active-orders"
+        class="orders-container"
+        id="orderplaced-container"
     >
-
-        <div
-            class="orders-container"
-            id="pending-container"
-        >
-
-        </div>
 
     </div>
 
-    <!-- SHIPPED -->
+</div>
+
+<!-- PREPARING -->
+
+<div
+    id="preparing"
+    class="orders-section"
+>
 
     <div
-        id="shipped"
-        class="orders-section"
+        class="orders-container"
+        id="preparing-container"
     >
-
-        <div
-            class="orders-container"
-            id="shipped-container"
-        >
-
-        </div>
 
     </div>
 
-    <!-- DELIVERED -->
+</div>
+
+<!-- PACKED -->
+
+<div
+    id="packed"
+    class="orders-section"
+>
 
     <div
-        id="delivered"
-        class="orders-section"
+        class="orders-container"
+        id="packed-container"
     >
-
-        <div
-            class="orders-container"
-            id="delivered-container"
-        >
-
-        </div>
 
     </div>
 
-    <!-- CANCELLED -->
+</div>
+
+<!-- DELIVERY -->
+
+<div
+    id="delivery"
+    class="orders-section"
+>
 
     <div
-        id="cancelled"
-        class="orders-section"
+        class="orders-container"
+        id="delivery-container"
     >
 
-        <div
-            class="orders-container"
-            id="cancelled-container"
-        >
+    </div>
 
-        </div>
+</div>
+
+<!-- DELIVERED -->
+
+<div
+    id="delivered"
+    class="orders-section"
+>
+
+    <div
+        class="orders-container"
+        id="delivered-container"
+    >
 
     </div>
+
+</div>
+
+<!-- CANCELLED -->
+
+<div
+    id="cancelled"
+    class="orders-section"
+>
+
+    <div
+        class="orders-container"
+        id="cancelled-container"
+    >
+
+    </div>
+
+</div>
 
 </div>
 
@@ -1363,28 +1413,35 @@ async function loadOrders(){
     const res = await fetch("/orders");
 
     const orders = await res.json();
+const orderplacedContainer =
+    document.getElementById("orderplaced-container");
 
-    const pendingContainer =
-        document.getElementById("pending-container");
+const preparingContainer =
+    document.getElementById("preparing-container");
 
-    const shippedContainer =
-        document.getElementById("shipped-container");
+const packedContainer =
+    document.getElementById("packed-container");
 
-    const deliveredContainer =
-        document.getElementById("delivered-container");
+const deliveryContainer =
+    document.getElementById("delivery-container");
 
-    const cancelledContainer =
-        document.getElementById("cancelled-container");
+const deliveredContainer =
+    document.getElementById("delivered-container");
 
+const cancelledContainer =
+    document.getElementById("cancelled-container");
     /* CLEAR */
+orderplacedContainer.innerHTML = "";
 
-    pendingContainer.innerHTML = "";
+preparingContainer.innerHTML = "";
 
-    shippedContainer.innerHTML = "";
+packedContainer.innerHTML = "";
 
-    deliveredContainer.innerHTML = "";
+deliveryContainer.innerHTML = "";
 
-    cancelledContainer.innerHTML = "";
+deliveredContainer.innerHTML = "";
+
+cancelledContainer.innerHTML = "";
 
     /* STATS */
 
@@ -1557,14 +1614,6 @@ async function loadOrders(){
     </button>
 
 </div>
-                    <button
-                        class="update-btn"
-                        onclick="updateStatus('${order._id}')"
-                    >
-
-                        Update
-
-                    </button>
 
                 </div>
 
@@ -1572,45 +1621,39 @@ async function loadOrders(){
 
         `;
 
-       /* STATUS DISPLAY */
+      /* STATUS DISPLAY */
 
-if(
+if(order.status === "Order Placed"){
 
-    order.status === "Order Placed" ||
-    order.status === "Preparing" ||
-    order.status === "Packed"
-
-){
-
-    pendingContainer.innerHTML += orderHTML;
+    orderplacedContainer.innerHTML += orderHTML;
 
 }
 
-else if(
+else if(order.status === "Preparing"){
 
-    order.status === "Out For Delivery"
-
-){
-
-    shippedContainer.innerHTML += orderHTML;
+    preparingContainer.innerHTML += orderHTML;
 
 }
 
-else if(
+else if(order.status === "Packed"){
 
-    order.status === "Delivered"
+    packedContainer.innerHTML += orderHTML;
 
-){
+}
+
+else if(order.status === "Out For Delivery"){
+
+    deliveryContainer.innerHTML += orderHTML;
+
+}
+
+else if(order.status === "Delivered"){
 
     deliveredContainer.innerHTML += orderHTML;
 
 }
 
-else if(
-
-    order.status === "Cancelled"
-
-){
+else if(order.status === "Cancelled"){
 
     cancelledContainer.innerHTML += orderHTML;
 

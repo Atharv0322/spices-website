@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Track Order - Atharv Masala</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <a href="index.html">Home</a>
+
+        <a href="products.html">Products</a>
+
+        <a href="about.html">About</a>
+
+    </div>
+
+    <div class="logo-center">
+
+        <span class="logo-icon">🌶️</span>
+
+        <span class="logo-text">
+
+            Atharv Masala
+
+        </span>
+
+    </div>
+
+    <div class="nav-right">
+
+        <a href="cart.html">
+
+            Cart (<span id="cart-count">0</span>)
+
+        </a>
+
+        <a href="track-order.html">
+
+            Track Order
+
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="page-hero">
+
+    <h1>
+
+        📦 Track Your Order
+
+    </h1>
+
+    <p>
+
+        Real-Time Order Tracking System
+
+    </p>
+
+</section>
+
+<!-- TRACK BOX -->
+
+<section class="products-section">
+
+    <div class="checkout-box">
+
+        <h2>
+
+            Enter Order ID
+
+        </h2>
+
+        <input
+            type="text"
+            id="orderId"
+            placeholder="Example: ORD123456"
+        >
+
+        <button onclick="trackOrder()">
+
+            Track Order 🚀
+
+        </button>
+
+        <!-- RESULT -->
+
+        <div
+            id="result"
+            style="margin-top:40px;"
+        >
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+/* TRACK ORDER */
+
+async function trackOrder(){
+
+    const orderId =
+        document.getElementById("orderId")
+        .value
+        .trim();
+
+    const result =
+        document.getElementById("result");
+
+    if(orderId === ""){
+
+        alert("❌ Enter Order ID");
+
+        return;
+
+    }
+
+    result.innerHTML = `
+
+        <h2>
+
+            Loading...
+
+        </h2>
+
+    `;
+
+    try{
+
+        const res = await fetch(
+
+            `/track-order/${orderId}`
+
+        );
+
+        const data = await res.json();
+
+        if(!data.success){
+
+            result.innerHTML = `
+
+                <h2 style="color:red;">
+
+                    ❌ Order Not Found
+
+                </h2>
+
+            `;
+
+            return;
+
+        }
+
+        const order = data.order;
+
+        let itemsHTML = "";
+
+        order.items.forEach(item => {
+
+            itemsHTML += `
+
+                <div class="track-item">
+
+                    <h3>
+
+                        ${item.name}
+
+                    </h3>
+
+                    <p>
+
+                        Quantity: ${item.quantity}
+
+                    </p>
+
+                    <p>
+
+                        Price: ₹${item.price}
+
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+        /* STATUS COLORS */
+
+        let statusColor = "#ff9800";
+
+        if(order.status === "Delivered"){
+
+            statusColor = "limegreen";
+
+        }
+
+        if(order.status === "Cancelled"){
+
+            statusColor = "red";
+
+        }
+
+        result.innerHTML = `
+
+            <div class="track-box">
+
+                <h2>
+
+                    ✅ Order Found
+
+                </h2>
+
+                <br>
+
+                <p>
+
+                    <strong>Order ID:</strong>
+
+                    ${order.orderId}
+
+                </p>
+
+                <p>
+
+                    <strong>Customer:</strong>
+
+                    ${order.customerName}
+
+                </p>
+
+                <p>
+
+                    <strong>Phone:</strong>
+
+                    ${order.phone}
+
+                </p>
+
+                <p>
+
+                    <strong>Payment:</strong>
+
+                    ${order.paymentMethod}
+
+                </p>
+
+                <p>
+
+                    <strong>Total:</strong>
+
+                    ₹${order.total}
+
+                </p>
+
+                <br>
+
+                <h2 style="color:${statusColor};">
+
+                    ${order.status}
+
+                </h2>
+
+                <br>
+
+                <div class="progress-container">
+
+                    <div class="progress-step active">
+
+                        ✔ Order Placed
+
+                    </div>
+
+                    <div class="progress-step ${
+
+                        order.status === "Preparing" ||
+                        order.status === "Packed" ||
+                        order.status === "Out For Delivery" ||
+                        order.status === "Delivered"
+
+                        ? "active"
+                        : ""
+
+                    }">
+
+                        ✔ Preparing
+
+                    </div>
+
+                    <div class="progress-step ${
+
+                        order.status === "Packed" ||
+                        order.status === "Out For Delivery" ||
+                        order.status === "Delivered"
+
+                        ? "active"
+                        : ""
+
+                    }">
+
+                        ✔ Packed
+
+                    </div>
+
+                    <div class="progress-step ${
+
+                        order.status === "Out For Delivery" ||
+                        order.status === "Delivered"
+
+                        ? "active"
+                        : ""
+
+                    }">
+
+                        ✔ Out For Delivery
+
+                    </div>
+
+                    <div class="progress-step ${
+
+                        order.status === "Delivered"
+
+                        ? "active"
+                        : ""
+
+                    }">
+
+                        ✔ Delivered
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <h2>
+
+                    Ordered Products
+
+                </h2>
+
+                ${itemsHTML}
+
+            </div>
+
+        `;
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        result.innerHTML = `
+
+            <h2 style="color:red;">
+
+                ❌ Server Error
+
+            </h2>
+
+        `;
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

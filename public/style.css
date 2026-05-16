@@ -3180,3 +3180,332 @@ body{
 }
 
 }
+/* =========================================
+   FINAL PREMIUM MOBILE RESPONSIVE UI
+========================================= */
+
+@media screen and (max-width:768px){
+
+body{
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+    flex-direction:column;
+    height:auto;
+    padding:15px 12px;
+    gap:15px;
+}
+
+.nav-left,
+.nav-right{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+}
+
+.logo-center{
+    margin-bottom:0;
+    justify-content:center;
+}
+
+.logo-text{
+    font-size:30px;
+    text-align:center;
+}
+
+.logo-icon{
+    font-size:34px;
+}
+
+.navbar a{
+    font-size:16px;
+}
+
+/* HERO */
+
+.hero{
+    height:auto;
+    padding:140px 20px 80px;
+}
+
+.hero-content{
+    height:auto;
+    padding-top:0;
+    width:100%;
+}
+
+.premium-logo{
+    width:100%;
+    padding:30px 20px;
+}
+
+.brand-title{
+    font-size:48px;
+    line-height:1.2;
+}
+
+.hero-content h1{
+    font-size:42px;
+    line-height:1.2;
+}
+
+.hero-content p,
+.hero-subtitle{
+    font-size:18px;
+    line-height:1.6;
+}
+
+.hero-line{
+    width:120px;
+}
+
+.hero button,
+.hero-content button{
+    width:100%;
+    max-width:280px;
+}
+
+/* PAGE HERO */
+
+.page-hero{
+    padding-top:150px;
+    padding-bottom:40px;
+}
+
+.page-hero h1{
+    font-size:42px;
+    line-height:1.2;
+}
+
+.page-hero p{
+    font-size:18px;
+}
+
+/* SEARCH */
+
+.search-box{
+    padding:15px;
+}
+
+.search-box input{
+    width:100%;
+    font-size:15px;
+}
+
+/* CATEGORY BAR */
+
+.category-bar{
+    width:100%;
+    overflow-x:auto;
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+    padding:10px 15px;
+    gap:10px;
+}
+
+.category-bar button{
+    white-space:nowrap;
+    padding:12px 20px;
+    font-size:14px;
+}
+
+/* PRODUCTS */
+
+.products{
+    width:100%;
+    grid-template-columns:1fr;
+    gap:24px;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    border-radius:25px;
+}
+
+.card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card-content h3,
+.card h3{
+    font-size:24px;
+}
+
+.card-content p,
+.card p{
+    font-size:15px;
+    line-height:1.6;
+}
+
+.price{
+    font-size:28px;
+}
+
+.card button{
+    width:100%;
+    padding:14px;
+    font-size:16px;
+}
+
+/* FEATURE SECTION */
+
+.features,
+.trending-container,
+.testimonial-container,
+.stats-section,
+.about-content,
+.modern-grid,
+.cart-grid,
+.orders-container{
+    grid-template-columns:1fr;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+/* ABOUT */
+
+.about-hero{
+    padding-top:140px;
+    height:auto;
+}
+
+.about-hero h1{
+    font-size:42px;
+}
+
+.about-hero p{
+    font-size:18px;
+}
+
+/* CHECKOUT */
+
+.checkout-box{
+    width:95%;
+    padding:20px;
+}
+
+.checkout-box input,
+.checkout-box textarea{
+    font-size:15px;
+}
+
+/* LOGIN */
+
+.login-box{
+    width:95%;
+    padding:25px;
+}
+
+/* CART */
+
+.cart-hero h1{
+    font-size:42px;
+}
+
+.cart-total h2{
+    font-size:32px;
+}
+
+.cart-buttons{
+    flex-direction:column;
+}
+
+/* ADMIN PANEL */
+
+.sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+}
+
+.main-content{
+    width:100%;
+    margin-left:0;
+    padding:15px;
+}
+
+/* MANAGE PRODUCTS */
+
+.manage-product-card{
+    flex-direction:column;
+    padding:18px;
+}
+
+.manage-image{
+    width:100%;
+    min-width:100%;
+    height:220px;
+}
+
+.manage-grid{
+    grid-template-columns:1fr;
+}
+
+.manage-buttons{
+    flex-direction:column;
+}
+
+.manage-details h2{
+    font-size:28px;
+}
+
+/* ORDERS */
+
+.order-card{
+    padding:22px;
+}
+
+.order-card h3{
+    font-size:26px;
+}
+
+.order-card h2{
+    font-size:34px;
+}
+
+.status-section{
+    flex-direction:column;
+}
+
+.status-select,
+.update-btn{
+    width:100%;
+}
+
+/* FOOTER */
+
+footer{
+    padding:40px 20px;
+}
+
+footer h2{
+    font-size:28px;
+}
+
+footer p{
+    font-size:15px;
+    line-height:1.6;
+}
+
+/* WHATSAPP */
+
+.whatsapp-btn{
+    width:60px;
+    height:60px;
+    font-size:30px;
+}
+
+}

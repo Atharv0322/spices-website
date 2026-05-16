@@ -100,9 +100,16 @@
         >
 
         <input
+            type="email"
+            id="email"
+            placeholder="Email Address"
+        >
+
+        <input
             type="text"
             id="phone"
             placeholder="Phone Number"
+            maxlength="10"
         >
 
         <textarea
@@ -197,7 +204,10 @@
 
         <!-- BUTTON -->
 
-        <button onclick="placeOrder()">
+        <button
+            id="placeBtn"
+            onclick="placeOrder()"
+        >
 
             Place Order 🚀
 
@@ -221,6 +231,25 @@ function getCart(){
 
 }
 
+/* UPDATE CART COUNT */
+
+function updateCartCount(){
+
+    const cart = getCart();
+
+    let count = 0;
+
+    cart.forEach(item => {
+
+        count += item.quantity;
+
+    });
+
+    document.getElementById("cart-count")
+        .innerText = count;
+
+}
+
 /* LOAD SUMMARY */
 
 function loadSummary(){
@@ -231,6 +260,22 @@ function loadSummary(){
         document.getElementById("summary");
 
     let total = 0;
+
+    if(cart.length === 0){
+
+        summary.innerHTML = `
+
+            <h2>
+
+                ❌ Your Cart Is Empty
+
+            </h2>
+
+        `;
+
+        return;
+
+    }
 
     summary.innerHTML = `
 
@@ -276,48 +321,116 @@ function loadSummary(){
 
 }
 
+/* EMAIL VALIDATION */
+
+function validateEmail(email){
+
+    const regex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return regex.test(email);
+
+}
+
+/* PHONE VALIDATION */
+
+function validatePhone(phone){
+
+    return /^[0-9]{10}$/.test(phone);
+
+}
+
 /* PLACE ORDER */
 
 async function placeOrder(){
 
     const name =
-        document.getElementById("name").value;
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
 
     const phone =
-        document.getElementById("phone").value;
+        document.getElementById("phone").value.trim();
 
     const address =
-        document.getElementById("address").value;
+        document.getElementById("address").value.trim();
 
     const payment =
         document.querySelector(
             'input[name="payment"]:checked'
         )?.value;
 
-    /* VALIDATION */
-
-    if(
-        name === "" ||
-        phone === "" ||
-        address === "" ||
-        !payment
-    ){
-
-        alert("❌ Please fill all details");
-
-        return;
-
-    }
-
     const cart = getCart();
+
+    /* EMPTY CART */
 
     if(cart.length === 0){
 
-        alert("❌ Cart is empty");
+        alert("❌ Your cart is empty");
 
         return;
 
     }
+
+    /* NAME */
+
+    if(name.length < 3){
+
+        alert("❌ Enter valid full name");
+
+        return;
+
+    }
+
+    /* EMAIL */
+
+    if(!validateEmail(email)){
+
+        alert("❌ Enter valid email address");
+
+        return;
+
+    }
+
+    /* PHONE */
+
+    if(!validatePhone(phone)){
+
+        alert("❌ Phone number must be 10 digits");
+
+        return;
+
+    }
+
+    /* ADDRESS */
+
+    if(address.length < 10){
+
+        alert("❌ Enter complete delivery address");
+
+        return;
+
+    }
+
+    /* PAYMENT */
+
+    if(!payment){
+
+        alert("❌ Select payment method");
+
+        return;
+
+    }
+
+    /* DISABLE BUTTON */
+
+    const btn =
+        document.getElementById("placeBtn");
+
+    btn.disabled = true;
+
+    btn.innerText = "Processing...";
 
     let total = 0;
 
@@ -328,11 +441,23 @@ async function placeOrder(){
 
     });
 
+    /* ORDER ID */
+
+    const orderId =
+        "ORD" +
+        Math.floor(
+            100000 + Math.random() * 900000
+        );
+
     /* ORDER DATA */
 
     const orderData = {
 
+        orderId:orderId,
+
         customerName:name,
+
+        email:email,
 
         phone:phone,
 
@@ -344,7 +469,9 @@ async function placeOrder(){
 
         total:total,
 
-        status:"Pending"
+        status:"Order Placed",
+
+        date:new Date()
 
     };
 
@@ -376,7 +503,9 @@ async function placeOrder(){
         if(data.success){
 
             alert(
-                "🎉 Order Placed Successfully!"
+
+                `🎉 Order Placed Successfully!\n\nOrder ID: ${orderId}`
+
             );
 
             localStorage.removeItem("cart");
@@ -404,11 +533,17 @@ async function placeOrder(){
 
     }
 
+    btn.disabled = false;
+
+    btn.innerText = "Place Order 🚀";
+
 }
 
 /* INITIAL LOAD */
 
 loadSummary();
+
+updateCartCount();
 
 </script>
 

@@ -8,7 +8,9 @@ const cors = require("cors");
 
 const app = express();
 
-/* MIDDLEWARE */
+/* =========================================
+   MIDDLEWARE
+========================================= */
 
 app.use(cors());
 
@@ -28,7 +30,10 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 
-/* MONGODB CONNECTION */
+/* =========================================
+   MONGODB CONNECTION
+========================================= */
+
 mongoose.connect(
 "mongodb+srv://atharv0322:atharv123@cluster0.h5zudqr.mongodb.net/spicesDB?retryWrites=true&w=majority"
 )
@@ -43,19 +48,33 @@ mongoose.connect(
 
     console.log(err);
 
-});    
+});
 
-/* PRODUCT SCHEMA */
+/* =========================================
+   PRODUCT SCHEMA
+========================================= */
 
 const productSchema = new mongoose.Schema({
 
-    name:String,
+    name:{
+        type:String,
+        required:true
+    },
 
-    description:String,
+    description:{
+        type:String,
+        required:true
+    },
 
-    price:Number,
+    price:{
+        type:Number,
+        required:true
+    },
 
-    image:String,
+    image:{
+        type:String,
+        required:true
+    },
 
     badge:String,
 
@@ -85,17 +104,59 @@ const Product = mongoose.model(
 
 );
 
-/* ORDER SCHEMA */
+/* =========================================
+   ORDER SCHEMA
+========================================= */
 
 const orderSchema = new mongoose.Schema({
 
-    customerName:String,
+    orderId:{
 
-    phone:String,
+        type:String,
 
-    address:String,
+        unique:true
 
-    paymentMethod:String,
+    },
+
+    customerName:{
+
+        type:String,
+
+        required:true
+
+    },
+
+    email:{
+
+        type:String,
+
+        required:true
+
+    },
+
+    phone:{
+
+        type:String,
+
+        required:true
+
+    },
+
+    address:{
+
+        type:String,
+
+        required:true
+
+    },
+
+    paymentMethod:{
+
+        type:String,
+
+        required:true
+
+    },
 
     items:Array,
 
@@ -105,7 +166,7 @@ const orderSchema = new mongoose.Schema({
 
         type:String,
 
-        default:"Pending"
+        default:"Order Placed"
 
     },
 
@@ -139,17 +200,50 @@ app.post("/add-product", async (req,res)=>{
 
     try{
 
+        const {
+
+            name,
+
+            description,
+
+            price,
+
+            image,
+
+            badge
+
+        } = req.body;
+
+        if(
+
+            !name ||
+            !description ||
+            !price ||
+            !image
+
+        ){
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"❌ Fill all product fields"
+
+            });
+
+        }
+
         const product = new Product({
 
-            name:req.body.name,
+            name,
 
-            description:req.body.description,
+            description,
 
-            price:req.body.price,
+            price,
 
-            image:req.body.image,
+            image,
 
-            badge:req.body.badge,
+            badge,
 
             reviews:[]
 
@@ -205,6 +299,7 @@ app.get("/products", async (req,res)=>{
     }
 
 });
+
 /* UPDATE PRODUCT */
 
 app.put("/update-product/:id", async (req,res)=>{
@@ -233,7 +328,9 @@ app.put("/update-product/:id", async (req,res)=>{
 
         res.json({
 
-            success:true
+            success:true,
+
+            message:"✅ Product Updated"
 
         });
 
@@ -266,7 +363,9 @@ app.delete("/delete-product/:id", async (req,res)=>{
 
         res.json({
 
-            success:true
+            success:true,
+
+            message:"🗑️ Product Deleted"
 
         });
 
@@ -312,7 +411,9 @@ app.post("/add-review/:id", async (req,res)=>{
 
         res.json({
 
-            success:true
+            success:true,
+
+            message:"⭐ Review Added"
 
         });
 
@@ -341,29 +442,79 @@ app.post("/place-order", async (req,res)=>{
 
     try{
 
-        console.log(req.body);
+        const {
+
+            orderId,
+
+            customerName,
+
+            email,
+
+            phone,
+
+            address,
+
+            paymentMethod,
+
+            items,
+
+            total
+
+        } = req.body;
+
+        /* VALIDATION */
+
+        if(
+
+            !customerName ||
+            !email ||
+            !phone ||
+            !address ||
+            !paymentMethod
+
+        ){
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"❌ Missing order details"
+
+            });
+
+        }
+
+        if(items.length === 0){
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"❌ Cart is empty"
+
+            });
+
+        }
 
         const order = new Order({
 
-            customerName:
-                req.body.customerName,
+            orderId,
 
-            phone:
-                req.body.phone,
+            customerName,
 
-            address:
-                req.body.address,
+            email,
 
-            paymentMethod:
-                req.body.paymentMethod,
+            phone,
 
-            items:
-                req.body.items,
+            address,
 
-            total:
-                req.body.total,
+            paymentMethod,
 
-            status:"Pending"
+            items,
+
+            total,
+
+            status:"Order Placed"
 
         });
 
@@ -373,9 +524,45 @@ app.post("/place-order", async (req,res)=>{
 
             success:true,
 
-            message:"✅ Order Placed"
+            message:"🎉 Order Placed Successfully",
+
+            orderId:orderId
 
         });
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"❌ Server Error"
+
+        });
+
+    }
+
+});
+
+/* GET ALL ORDERS */
+
+app.get("/orders", async (req,res)=>{
+
+    try{
+
+        const orders =
+            await Order.find()
+
+            .sort({
+
+                createdAt:-1
+
+            });
+
+        res.json(orders);
 
     }
     catch(err){
@@ -392,16 +579,38 @@ app.post("/place-order", async (req,res)=>{
 
 });
 
-/* GET ORDERS */
+/* TRACK ORDER */
 
-app.get("/orders", async (req,res)=>{
+app.get("/track-order/:orderId", async (req,res)=>{
 
     try{
 
-        const orders =
-            await Order.find();
+        const order =
+            await Order.findOne({
 
-        res.json(orders);
+                orderId:req.params.orderId
+
+            });
+
+        if(!order){
+
+            return res.status(404).json({
+
+                success:false,
+
+                message:"❌ Order Not Found"
+
+            });
+
+        }
+
+        res.json({
+
+            success:true,
+
+            order:order
+
+        });
 
     }
     catch(err){
@@ -442,7 +651,9 @@ app.put(
 
             res.json({
 
-                success:true
+                success:true,
+
+                message:"✅ Status Updated"
 
             });
 
@@ -464,14 +675,27 @@ app.put(
 );
 
 /* =========================================
+   DEFAULT ROUTE
+========================================= */
+
+app.get("/", (req,res)=>{
+
+    res.send("🚀 Atharv Masala Backend Running");
+
+});
+
+/* =========================================
    START SERVER
 ========================================= */
 
-app.listen(3000, ()=>{
+const PORT =
+    process.env.PORT || 3000;
+
+app.listen(PORT, ()=>{
 
     console.log(
 
-        "🚀 Server running on http://localhost:3000"
+        `🚀 Server running on port ${PORT}`
 
     );
 

@@ -97,24 +97,14 @@ body {
 }
 /* LOGO */
 
-.logo-center {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 20px;
-
-    margin-bottom: 35px;
-
+.logo-center{
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
-.logo-icon {
-
-    font-size: 45px;
-
+.logo-icon{
+    font-size:42px;
 }
 
 .logo-text{
@@ -122,6 +112,34 @@ body {
     font-weight:700;
     color:white;
     letter-spacing:1px;
+}
+.nav-left{
+    margin-left:auto;
+    margin-right:80px;
+}
+
+.nav-right{
+    gap:35px;
+}
+/* DESKTOP NAVBAR SPACING */
+
+@media screen and (min-width:769px){
+
+.navbar{
+    padding:0 70px;
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:45px;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+}
+
 }
 @keyframes float {
 

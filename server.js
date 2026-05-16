@@ -29,14 +29,21 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 /* MONGODB CONNECTION */
-
 mongoose.connect(
-
-"mongodb+srv://atharv0322:atharv123@cluster0.h5zudqr.mongodb.net/spicesDB?retryWrites=true&w=majority&appName=Cluster0"
-
+"mongodb+srv://atharv0322:atharv123@cluster0.h5zudqr.mongodb.net/spicesDB?retryWrites=true&w=majority"
 )
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.log(err));    
+
+.then(() => {
+
+    console.log("✅ MongoDB Connected");
+
+})
+
+.catch((err) => {
+
+    console.log(err);
+
+});    
 
 /* PRODUCT SCHEMA */
 

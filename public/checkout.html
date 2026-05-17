@@ -11,6 +11,19 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- EMAILJS -->
+
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+
+    <script>
+
+        emailjs.init("S4GQIV5XISqsaiU7w");
+
+    </script>
+
 </head>
 
 <body>
@@ -48,16 +61,16 @@
     <div class="nav-right">
 
         <a href="cart.html">
-    Cart (<span id="cart-count">0</span>)
-</a>
+            Cart (<span id="cart-count">0</span>)
+        </a>
 
-<a href="track-order.html">
-    Track Order
-</a>
+        <a href="track-order.html">
+            Track Order
+        </a>
 
-<a href="login.html">
-    Admin
-</a>
+        <a href="login.html">
+            Admin
+        </a>
 
     </div>
 
@@ -506,6 +519,46 @@ async function placeOrder(){
 
         if(data.success){
 
+            /* SEND EMAIL */
+
+            emailjs.send(
+
+                "service_7r67ga6",
+
+                "template_sekxhzc",
+
+                {
+
+                    customer_name:name,
+
+                    order_id:orderId,
+
+                    email:email,
+
+                    track_link:
+                    `https://spices-website-ynf3.onrender.com/track-order.html?orderId=${orderId}`
+
+                }
+
+            )
+
+            .then(()=>{
+
+                console.log(
+                    "✅ Email Sent"
+                );
+
+            })
+
+            .catch((error)=>{
+
+                console.log(
+                    "❌ Email Error",
+                    error
+                );
+
+            });
+
             alert(
 
                 `🎉 Order Placed Successfully!\n\nOrder ID: ${orderId}`
@@ -553,4 +606,4 @@ updateCartCount();
 
 </body>
 
-</html>
+</html> 

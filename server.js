@@ -18,10 +18,9 @@ const transporter = nodemailer.createTransport({
 
     host:"smtp.resend.com",
 
-    port:465,
+    port:587,
 
-    secure:true,
-
+secure:false,
     auth:{
 
         user:"resend",

@@ -1,5 +1,5 @@
 const express = require("express");
-
+const axios = require("axios");
 const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
@@ -518,17 +518,74 @@ app.post("/place-order", async (req,res)=>{
 
         });
 
-        await order.save();
+      await order.save();
 
-        res.json({
+/* SEND SMS */
 
-            success:true,
+try{
 
-            message:"🎉 Order Placed Successfully",
+    await axios.post(
 
-            orderId:orderId
+        "https://www.fast2sms.com/dev/bulkV2",
 
-        });
+        {
+
+            route:"q",
+
+            message:
+
+`✅ Atharv Masala Order Confirmed
+
+Order ID: ${orderId}
+
+Track Order:
+https://spices-website-ynf3.onrender.com/track-order.html`,
+
+            language:"english",
+
+            flash:0,
+
+            numbers:phone
+
+        },
+
+        {
+
+            headers:{
+
+                authorization:
+                "h7HQVMzCyIaLr8S0NcpqoYbRj1OsvAdukZi65FJUGBTPfEe2l9za2AEBnmZxViFNG6RjkL5t34JW7u1r"
+
+            }
+
+        }
+
+    );
+
+    console.log("✅ SMS Sent");
+
+}
+catch(error){
+
+    console.log(
+
+        "❌ SMS Error",
+
+        error.message
+
+    );
+
+}
+
+res.json({
+
+    success:true,
+
+    message:"🎉 Order Placed Successfully",
+
+    orderId:orderId
+
+});
 
     }
     catch(err){

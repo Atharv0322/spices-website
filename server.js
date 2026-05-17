@@ -1,13 +1,30 @@
 const express = require("express");
-const axios = require("axios");
-const mongoose = require("mongoose");
 
+const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
 
 const app = express();
 
+/* =========================================
+   EMAIL TRANSPORT
+========================================= */
+
+const transporter = nodemailer.createTransport({
+
+    service:"gmail",
+
+    auth:{
+
+        user:"atharvthorat204@gmail.com",
+
+        pass:"mpkx kgyr ftsl vyzm"
+
+    }
+
+});
 /* =========================================
    MIDDLEWARE
 ========================================= */
@@ -519,57 +536,71 @@ app.post("/place-order", async (req,res)=>{
         });
 
       await order.save();
-
-/* SEND SMS */
+      /* SEND EMAIL */
 
 try{
 
-    await axios.post(
+    await transporter.sendMail({
 
-        "https://www.fast2sms.com/dev/bulkV2",
+        from:"Atharv Masala 🌶️",
 
-        {
+        to:email,
 
-            route:"q",
+        subject:"✅ Order Confirmed - Atharv Masala",
 
-            message:
+        html:`
 
-`✅ Atharv Masala Order Confirmed
+            <h2>
+                ✅ Order Confirmed
+            </h2>
 
-Order ID: ${orderId}
+            <p>
 
-Track Order:
-https://spices-website-ynf3.onrender.com/track-order.html`,
+                Hello ${customerName},
 
-            language:"english",
+            </p>
 
-            flash:0,
+            <p>
 
-            numbers:phone
+                Your order has been placed
+                successfully.
 
-        },
+            </p>
 
-        {
+            <h3>
 
-            headers:{
+                Order ID:
+                ${orderId}
 
-                authorization:
-                "h7HQVMzCyIaLr8S0NcpqoYbRj1OsvAdukZi65FJUGBTPfEe2l9za2AEBnmZxViFNG6RjkL5t34JW7u1r"
+            </h3>
 
-            }
+            <p>
 
-        }
+                Thank you for shopping with
+                Atharv Masala 🌶️
 
-    );
+            </p>
 
-    console.log("✅ SMS Sent");
+            <a
+                href="https://spices-website-ynf3.onrender.com/track-order.html"
+            >
+
+                Track Order
+
+            </a>
+
+        `
+
+    });
+
+    console.log("✅ Email Sent");
 
 }
 catch(error){
 
     console.log(
 
-        "❌ SMS Error",
+        "❌ Email Error",
 
         error.message
 

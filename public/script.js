@@ -8,6 +8,8 @@ function showToast(message) {
 
     const toast = document.getElementById("toast");
 
+    if(!toast) return;
+
     toast.innerText = message;
 
     toast.classList.add("show");
@@ -60,7 +62,9 @@ function addToCart(name, price) {
     }
 
     saveCart(cart);
-    updateCartCount();  
+
+    updateCartCount();
+
     showToast(name + " added to cart 🛒");
 
 }
@@ -71,6 +75,14 @@ function displayProducts(products) {
 
     const container =
         document.getElementById("products");
+
+    /* FIX ADDED HERE */
+
+    if(!container){
+
+        return;
+
+    }
 
     container.innerHTML = "";
 
@@ -276,10 +288,13 @@ async function addReview(productId) {
 
 function searchProducts() {
 
-    const search = document
-        .getElementById("search")
-        .value
-        .toLowerCase();
+    const searchInput =
+        document.getElementById("search");
+
+    if(!searchInput) return;
+
+    const search =
+        searchInput.value.toLowerCase();
 
     const filtered = allProducts.filter(product =>
 
@@ -295,17 +310,33 @@ function searchProducts() {
 
 async function loadProducts() {
 
-    const res = await fetch("/products");
+    try{
 
-    const data = await res.json();
+        const res = await fetch("/products");
 
-    allProducts = data;
+        const data = await res.json();
 
-    displayProducts(allProducts);
+        allProducts = data;
+
+        displayProducts(allProducts);
+
+    }
+    catch(error){
+
+        console.log("Error loading products", error);
+
+    }
 
 }
 
-loadProducts();
+/* ONLY LOAD IF PRODUCTS CONTAINER EXISTS */
+
+if(document.getElementById("products")){
+
+    loadProducts();
+
+}
+
 /* COUNTER ANIMATION */
 
 const counters = document.querySelectorAll(".counter");
@@ -341,15 +372,22 @@ counters.forEach(counter => {
     updateCounter();
 
 });
+
 /* MOBILE MENU */
 
 function toggleMenu() {
 
-    document
-        .getElementById("mobile-menu")
-        .classList.toggle("active");
+    const menu =
+        document.getElementById("mobile-menu");
+
+    if(menu){
+
+        menu.classList.toggle("active");
+
+    }
 
 }
+
 /* FILTER PRODUCTS */
 
 function filterProducts(category) {
@@ -374,6 +412,7 @@ function filterProducts(category) {
     displayProducts(filtered);
 
 }
+
 /* SCROLL ANIMATION */
 
 const observer =
@@ -403,6 +442,7 @@ hiddenElements.forEach(el => {
     observer.observe(el);
 
 });
+
 /* CART COUNT */
 
 function updateCartCount() {
@@ -436,21 +476,3 @@ function updateCartCount() {
 /* UPDATE ON LOAD */
 
 updateCartCount();
-/* TOAST FUNCTION */
-
-function showToast(message) {
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.innerText = message;
-
-    toast.classList.add("show");
-
-    setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    }, 3000);
-
-}

@@ -1,33 +1,15 @@
 const express = require("express");
-
+const { Resend } = require("resend");
 const mongoose = require("mongoose");
-const nodemailer = require("nodemailer");
+
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
 
 const app = express();
 
-/* =========================================
-   EMAIL TRANSPORT
-========================================= */
+const resend = new Resend("re_JeCn3bia_aLtYdyAA9XzoLbz8NiWKxcN4");
 
-const transporter = nodemailer.createTransport({
-
-    host:"smtp.gmail.com",
-
-   port:587,
-secure:false,
-
-    auth:{
-
-        user:"atharvthotay204@gmail.com",
-
-        pass:"mpkxkgyrftslvyzm"
-
-    }
-
-});
 /* =========================================
    MIDDLEWARE
 ========================================= */
@@ -543,9 +525,9 @@ app.post("/place-order", async (req,res)=>{
 
 /* SEND EMAIL IN BACKGROUND */
 
-transporter.sendMail({
+resend.emails.send({
 
-    from:'"Atharv Masala 🌶️" <atharvthotay204@gmail.com>',
+    from:"onboarding@resend.dev",
 
     to:email,
 
@@ -558,30 +540,20 @@ transporter.sendMail({
         </h2>
 
         <p>
-
             Hello ${customerName},
-
         </p>
 
         <p>
-
-            Your order has been placed
-            successfully.
-
+            Your order has been placed successfully.
         </p>
 
         <h3>
-
-            Order ID:
-            ${orderId}
-
+            Order ID: ${orderId}
         </h3>
 
         <p>
-
             Thank you for shopping with
             Atharv Masala 🌶️
-
         </p>
 
     `
@@ -595,8 +567,8 @@ transporter.sendMail({
 .catch((error)=>{
 
     console.log(
-        "❌ Email Error",
-        error.message
+        "❌ Resend Error",
+        error
     );
 
 });

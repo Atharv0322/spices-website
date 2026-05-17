@@ -524,54 +524,81 @@ app.post("/place-order", async (req,res)=>{
       /* SEND EMAIL */
 
 /* SEND EMAIL IN BACKGROUND */
+try{
 
-resend.emails.send({
+    await resend.emails.send({
 
-   from:"Atharv Masala <atharvthotay204@gmail.com>",
+        from:"onboarding@resend.dev",
 
-    to:email,
+        to:[email],
 
-    subject:"✅ Order Confirmed - Atharv Masala",
+        subject:"✅ Order Confirmed - Atharv Masala",
 
-    html:`
+        html:`
 
-        <h2>
-            ✅ Order Confirmed
-        </h2>
+            <div
+                style="
+                    font-family:Arial;
+                    padding:20px;
+                "
+            >
 
-        <p>
-            Hello ${customerName},
-        </p>
+                <h2>
+                    ✅ Order Confirmed
+                </h2>
 
-        <p>
-            Your order has been placed successfully.
-        </p>
+                <p>
 
-        <h3>
-            Order ID: ${orderId}
-        </h3>
+                    Hello ${customerName},
 
-        <p>
-            Thank you for shopping with
-            Atharv Masala 🌶️
-        </p>
+                </p>
 
-    `
+                <p>
 
-})
-.then(()=>{
+                    Your order has been placed
+                    successfully.
 
-    console.log("✅ Email Sent");
+                </p>
 
-})
-.catch((error)=>{
+                <h3>
+
+                    Order ID:
+                    ${orderId}
+
+                </h3>
+
+                <p>
+
+                    Thank you for shopping with
+                    Atharv Masala 🌶️
+
+                </p>
+
+                <a
+                    href="https://spices-website-ynf3.onrender.com/track-order.html"
+                >
+
+                    Track Your Order
+
+                </a>
+
+            </div>
+
+        `
+
+    });
+
+    console.log("✅ Email Sent Successfully");
+
+}
+catch(error){
 
     console.log(
         "❌ Resend Error",
         error
     );
 
-});
+}
 
 res.json({
 

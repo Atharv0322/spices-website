@@ -1,5 +1,5 @@
 const express = require("express");
-const { Resend } = require("resend");
+
 const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
@@ -7,9 +7,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-const resend = new Resend(
-    "re_JeCn3bia_aLtYdyAA9XzoLbz8NiWKxcN4"
-);
+
 /* =========================================
    MIDDLEWARE
 ========================================= */
@@ -526,96 +524,7 @@ app.post("/place-order", async (req,res)=>{
         await order.save();
 
         /* SEND EMAIL IN BACKGROUND */
-resend.emails.send({
 
-    from:"onboarding@resend.dev",
-
-    to:[email],
-
-    subject:"Your Atharv Masala Order is Confirmed 🌶️",
-
-    html:`
-
-        <div
-            style="
-                font-family:Arial;
-                padding:20px;
-            "
-        >
-
-            <h2>
-                ✅ Order Confirmed
-            </h2>
-
-            <p>
-
-                Hello ${customerName},
-
-            </p>
-
-            <p>
-
-                Your order has been placed successfully.
-
-            </p>
-
-            <h3>
-
-                Order ID:
-                ${orderId}
-
-            </h3>
-
-            <a
-
-                href="https://spices-website-ynf3.onrender.com/track-order.html?orderId=${orderId}"
-
-                style="
-                    display:inline-block;
-                    margin-top:20px;
-                    padding:12px 20px;
-                    background:#ff7a00;
-                    color:white;
-                    text-decoration:none;
-                    border-radius:8px;
-                    font-weight:bold;
-                "
-
-            >
-
-                📦 Track Your Order
-
-            </a>
-
-            <p>
-
-                Thank you for shopping with
-                Atharv Masala 🌶️
-
-            </p>
-
-        </div>
-
-    `
-
-})
-
-.then(()=>{
-
-    console.log(
-        "✅ Customer Email Sent"
-    );
-
-})
-
-.catch((error)=>{
-
-    console.log(
-        "❌ Email Error",
-        error
-    );
-
-});
         res.json({
 
             success:true,

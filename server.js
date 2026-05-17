@@ -525,7 +525,8 @@ app.post("/place-order", async (req,res)=>{
 
 /* SEND EMAIL IN BACKGROUND */
 try{
-
+    console.log("EMAIL GOING TO:", email);
+    
     await resend.emails.send({
 
         from:"onboarding@resend.dev",

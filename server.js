@@ -527,7 +527,7 @@ app.post("/place-order", async (req,res)=>{
 
 resend.emails.send({
 
-    from:"onboarding@resend.dev",
+   from:"Atharv Masala <atharvthotay204@gmail.com>",
 
     to:email,
 

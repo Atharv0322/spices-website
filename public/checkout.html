@@ -559,16 +559,27 @@ async function placeOrder(){
 
             });
 
-            alert(
+         alert(
 
-                `🎉 Order Placed Successfully!\n\nOrder ID: ${orderId}`
+`🎉 Order Placed Successfully!
 
-            );
+Order ID: ${orderId}
 
-            localStorage.removeItem("cart");
+Please wait...
+Sending confirmation email.`
 
-            window.location.href =
-                "index.html";
+);
+
+localStorage.removeItem("cart");
+
+/* WAIT BEFORE REDIRECT */
+
+setTimeout(()=>{
+
+    window.location.href =
+        "index.html";
+
+}, 5000);
 
         }
         else{

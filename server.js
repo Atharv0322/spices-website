@@ -542,75 +542,65 @@ app.post("/place-order", async (req,res)=>{
       await order.save();
       /* SEND EMAIL */
 
-try{
+/* SEND EMAIL IN BACKGROUND */
 
-    await transporter.sendMail({
+transporter.sendMail({
 
-        from:"Atharv Masala 🌶️",
+    from:'"Atharv Masala 🌶️" <atharvthotay204@gmail.com>',
 
-        to:email,
+    to:email,
 
-        subject:"✅ Order Confirmed - Atharv Masala",
+    subject:"✅ Order Confirmed - Atharv Masala",
 
-        html:`
+    html:`
 
-            <h2>
-                ✅ Order Confirmed
-            </h2>
+        <h2>
+            ✅ Order Confirmed
+        </h2>
 
-            <p>
+        <p>
 
-                Hello ${customerName},
+            Hello ${customerName},
 
-            </p>
+        </p>
 
-            <p>
+        <p>
 
-                Your order has been placed
-                successfully.
+            Your order has been placed
+            successfully.
 
-            </p>
+        </p>
 
-            <h3>
+        <h3>
 
-                Order ID:
-                ${orderId}
+            Order ID:
+            ${orderId}
 
-            </h3>
+        </h3>
 
-            <p>
+        <p>
 
-                Thank you for shopping with
-                Atharv Masala 🌶️
+            Thank you for shopping with
+            Atharv Masala 🌶️
 
-            </p>
+        </p>
 
-            <a
-                href="https://spices-website-ynf3.onrender.com/track-order.html"
-            >
+    `
 
-                Track Order
-
-            </a>
-
-        `
-
-    });
+})
+.then(()=>{
 
     console.log("✅ Email Sent");
 
-}
-catch(error){
+})
+.catch((error)=>{
 
     console.log(
-
         "❌ Email Error",
-
         error.message
-
     );
 
-}
+});
 
 res.json({
 

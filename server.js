@@ -1,36 +1,15 @@
 const express = require("express");
-
+const { Resend } = require("resend");
 const mongoose = require("mongoose");
-
-const nodemailer = require("nodemailer");
 
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
 
 const app = express();
-
-/* =========================================
-   EMAIL TRANSPORTER
-========================================= */
-
-const transporter = nodemailer.createTransport({
-
-    host:"smtp.resend.com",
-
-    port:587,
-
-secure:false,
-    auth:{
-
-        user:"resend",
-
-        pass:"re_JeCn3bia_aLtYdyAA9XzoLbz8NiWKxcN4"
-
-    }
-
-});
-
+const resend = new Resend(
+    "re_JeCn3bia_aLtYdyAA9XzoLbz8NiWKxcN4"
+);
 /* =========================================
    MIDDLEWARE
 ========================================= */
@@ -547,98 +526,96 @@ app.post("/place-order", async (req,res)=>{
         await order.save();
 
         /* SEND EMAIL IN BACKGROUND */
+resend.emails.send({
 
-        transporter.sendMail({
+    from:"onboarding@resend.dev",
 
-            from:"Atharv Masala <onboarding@resend.dev>",
+    to:[email],
 
-            to:email,
+    subject:"Your Atharv Masala Order is Confirmed 🌶️",
 
-            subject:"Your Atharv Masala Order is Confirmed 🌶️",
+    html:`
 
-            html:`
+        <div
+            style="
+                font-family:Arial;
+                padding:20px;
+            "
+        >
 
-                <div
-                    style="
-                        font-family:Arial;
-                        padding:20px;
-                    "
-                >
+            <h2>
+                ✅ Order Confirmed
+            </h2>
 
-                    <h2>
-                        ✅ Order Confirmed
-                    </h2>
+            <p>
 
-                    <p>
+                Hello ${customerName},
 
-                        Hello ${customerName},
+            </p>
 
-                    </p>
+            <p>
 
-                    <p>
+                Your order has been placed successfully.
 
-                        Your order has been placed successfully.
+            </p>
 
-                    </p>
+            <h3>
 
-                    <h3>
+                Order ID:
+                ${orderId}
 
-    Order ID:
-    ${orderId}
+            </h3>
 
-</h3>
+            <a
 
-<a
+                href="https://spices-website-ynf3.onrender.com/track-order.html?orderId=${orderId}"
 
-    href="https://spices-website-ynf3.onrender.com/track-order.html?orderId=${orderId}"
+                style="
+                    display:inline-block;
+                    margin-top:20px;
+                    padding:12px 20px;
+                    background:#ff7a00;
+                    color:white;
+                    text-decoration:none;
+                    border-radius:8px;
+                    font-weight:bold;
+                "
 
-    style="
-        display:inline-block;
-        margin-top:20px;
-        padding:12px 20px;
-        background:#ff7a00;
-        color:white;
-        text-decoration:none;
-        border-radius:8px;
-        font-weight:bold;
-    "
+            >
 
->
+                📦 Track Your Order
 
-    📦 Track Your Order
+            </a>
 
-</a>
+            <p>
 
-                    <p>
+                Thank you for shopping with
+                Atharv Masala 🌶️
 
-                        Thank you for shopping with
-                        Atharv Masala 🌶️
+            </p>
 
-                    </p>
+        </div>
 
-                </div>
+    `
 
-            `
+})
 
-        })
+.then(()=>{
 
-        .then(()=>{
+    console.log(
+        "✅ Customer Email Sent"
+    );
 
-            console.log(
-                "✅ Customer Email Sent"
-            );
+})
 
-        })
+.catch((error)=>{
 
-        .catch((error)=>{
+    console.log(
+        "❌ Email Error",
+        error
+    );
 
-            console.log(
-                "❌ Email Error",
-                error
-            );
-
-        });
-
+});
         res.json({
 
             success:true,

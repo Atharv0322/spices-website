@@ -1,14 +1,30 @@
 const express = require("express");
-const { Resend } = require("resend");
-const mongoose = require("mongoose");
 
+const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
 
 const app = express();
 
-const resend = new Resend("re_JeCn3bia_aLtYdyAA9XzoLbz8NiWKxcN4");
+const transporter = nodemailer.createTransport({
+
+    host:"smtp.resend.com",
+
+    port:465,
+
+    secure:true,
+
+    auth:{
+
+        user:"resend",
+
+        pass:"re_JeCn3bia_aLtYdyAA9XzoLbz8NiWKxcN4"
+
+    }
+
+});
 
 /* =========================================
    MIDDLEWARE
@@ -525,15 +541,16 @@ app.post("/place-order", async (req,res)=>{
 
 /* SEND EMAIL IN BACKGROUND */
 try{
+
     console.log("EMAIL GOING TO:", email);
 
-    await resend.emails.send({
+    await transporter.sendMail({
 
-        from:"onboarding@resend.dev",
-reply_to:"atharvthorat204@gmail.com",
-        to:[email],
+        from:"Atharv Masala <onboarding@resend.dev>",
 
-        subject:"✅ Order Confirmed - Atharv Masala",
+        to:email,
+
+        subject:"Your Atharv Masala Order is Confirmed 🌶️",
 
         html:`
 
@@ -556,8 +573,7 @@ reply_to:"atharvthorat204@gmail.com",
 
                 <p>
 
-                    Your order has been placed
-                    successfully.
+                    Your order has been placed successfully.
 
                 </p>
 
@@ -575,27 +591,19 @@ reply_to:"atharvthorat204@gmail.com",
 
                 </p>
 
-                <a
-                    href="https://spices-website-ynf3.onrender.com/track-order.html"
-                >
-
-                    Track Your Order
-
-                </a>
-
             </div>
 
         `
 
     });
 
-    console.log("✅ Email Sent Successfully");
+    console.log("✅ Customer Email Sent");
 
 }
 catch(error){
 
     console.log(
-        "❌ Resend Error",
+        "❌ Email Error",
         error
     );
 

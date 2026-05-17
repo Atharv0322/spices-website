@@ -476,3 +476,114 @@ function updateCartCount() {
 /* UPDATE ON LOAD */
 
 updateCartCount();
+/* =========================================
+   AI CHATBOT
+========================================= */
+
+function toggleAIChat(){
+
+    const box =
+        document.getElementById("aiChatBox");
+
+    if(box.style.display === "flex"){
+
+        box.style.display = "none";
+
+    }
+    else{
+
+        box.style.display = "flex";
+
+    }
+
+}
+
+async function sendAIMessage(){
+
+    const input =
+        document.getElementById("aiInput");
+
+    const message =
+        input.value.trim();
+
+    if(!message) return;
+
+    const messages =
+        document.getElementById("aiMessages");
+
+    /* USER MESSAGE */
+
+    messages.innerHTML += `
+
+        <div class="ai-message user">
+
+            ${message}
+
+        </div>
+
+    `;
+
+    input.value = "";
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+    try{
+
+        const response = await fetch(
+
+            "https://spices-website-ynf3.onrender.com/ai-chat",
+
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":"application/json"
+
+                },
+
+                body:JSON.stringify({
+
+                    message
+
+                })
+
+            }
+
+        );
+
+        const data =
+            await response.json();
+
+        messages.innerHTML += `
+
+            <div class="ai-message bot">
+
+                ${data.reply}
+
+            </div>
+
+        `;
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    }
+
+    catch(error){
+
+        messages.innerHTML += `
+
+            <div class="ai-message bot">
+
+                AI unavailable right now.
+
+            </div>
+
+        `;
+
+    }
+
+}   

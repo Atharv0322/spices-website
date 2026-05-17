@@ -568,7 +568,55 @@ function closeSidebar(){
 }
 
 </script>
+<!-- AI CHATBOT -->
 
+<div class="ai-chat-btn" onclick="toggleAIChat()">
+
+    🤖
+
+</div>
+
+<div class="ai-chat-box" id="aiChatBox">
+
+    <div class="ai-chat-header">
+
+        Atharv AI Assistant
+
+        <span onclick="toggleAIChat()">
+
+            ✖
+
+        </span>
+
+    </div>
+
+    <div class="ai-chat-messages" id="aiMessages">
+
+        <div class="ai-message bot">
+
+            👋 Hello! How can I help you today?
+
+        </div>
+
+    </div>
+
+    <div class="ai-chat-input">
+
+        <input
+            type="text"
+            id="aiInput"
+            placeholder="Ask something..."
+        >
+
+        <button onclick="sendAIMessage()">
+
+            Send
+
+        </button>
+
+    </div>
+
+</div>
 <script src="script.js"></script>
 
 </body>

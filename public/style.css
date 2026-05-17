@@ -3572,3 +3572,172 @@ button{
 }
 
 }
+/* =========================================
+   AI CHATBOT
+========================================= */
+
+.ai-chat-btn{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:90px;
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:#ff9800;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+
+}
+
+.ai-chat-box{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:170px;
+
+    width:350px;
+
+    max-width:90%;
+
+    height:500px;
+
+    background:#111;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    display:none;
+
+    flex-direction:column;
+
+    z-index:9999;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.4);
+
+}
+
+.ai-chat-header{
+
+    background:#ff9800;
+
+    color:white;
+
+    padding:15px;
+
+    font-weight:bold;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.ai-chat-messages{
+
+    flex:1;
+
+    padding:15px;
+
+    overflow-y:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.ai-message{
+
+    padding:12px 14px;
+
+    border-radius:14px;
+
+    max-width:80%;
+
+    line-height:1.5;
+
+}
+
+.ai-message.bot{
+
+    background:#222;
+
+    color:white;
+
+    align-self:flex-start;
+
+}
+
+.ai-message.user{
+
+    background:#ff9800;
+
+    color:white;
+
+    align-self:flex-end;
+
+}
+
+.ai-chat-input{
+
+    display:flex;
+
+    border-top:1px solid #333;
+
+}
+
+.ai-chat-input input{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    background:#1a1a1a;
+
+    color:white;
+
+}
+
+.ai-chat-input button{
+
+    background:#ff9800;
+
+    color:white;
+
+    border:none;
+
+    padding:0 20px;
+
+    cursor:pointer;
+
+}

@@ -1,5 +1,5 @@
 const express = require("express");
-
+const axios = require("axios");
 const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
@@ -8,6 +8,7 @@ const cors = require("cors");
 
 const app = express();
 
+const GEMINI_API_KEY = "AIzaSyBP8YfVrz2mk_-9lkZhkOYdeRPZqrXwW3I";
 /* =========================================
    MIDDLEWARE
 ========================================= */
@@ -688,6 +689,91 @@ app.put(
 app.get("/", (req,res)=>{
 
     res.send("🚀 Atharv Masala Backend Running");
+
+});
+/* =========================================
+   AI CHATBOT API
+========================================= */
+
+app.post("/ai-chat", async(req,res)=>{
+
+    try{
+
+        const userMessage = req.body.message;
+
+        const response = await axios.post(
+
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+
+            {
+
+                contents:[
+
+                    {
+
+                        parts:[
+
+                            {
+
+                                text:`
+
+You are Atharv Masala AI Assistant.
+
+You help customers with:
+- spices
+- products
+- delivery
+- tracking
+- payments
+
+Keep answers short and friendly.
+
+Customer Question:
+${userMessage}
+
+`
+
+                            }
+
+                        ]
+
+                    }
+
+                ]
+
+            }
+
+        );
+
+        const reply = response
+            .data
+            .candidates[0]
+            .content
+            .parts[0]
+            .text;
+
+        res.json({
+
+            success:true,
+            reply
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res.json({
+
+            success:false,
+
+            reply:"AI is currently unavailable."
+
+        });
+
+    }
 
 });
 

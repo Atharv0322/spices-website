@@ -14,13 +14,17 @@ const app = express();
 
 const transporter = nodemailer.createTransport({
 
-    service:"gmail",
+    host:"smtp.gmail.com",
+
+    port:465,
+
+    secure:true,
 
     auth:{
 
-        user:"atharvthorat204@gmail.com",
+        user:"atharvthotay204@gmail.com",
 
-        pass:"mpkx kgyr ftsl vyzm"
+        pass:"mpkxkgyrftslvyzm"
 
     }
 

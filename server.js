@@ -1,12 +1,18 @@
 const express = require("express");
 
 const mongoose = require("mongoose");
+
 const nodemailer = require("nodemailer");
+
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
 
 const app = express();
+
+/* =========================================
+   EMAIL TRANSPORTER
+========================================= */
 
 const transporter = nodemailer.createTransport({
 
@@ -53,16 +59,18 @@ app.use(express.static("public"));
 ========================================= */
 
 mongoose.connect(
-"mongodb+srv://atharv0322:atharv123@cluster0.h5zudqr.mongodb.net/spicesDB?retryWrites=true&w=majority"
+
+    "mongodb+srv://atharv0322:atharv123@cluster0.h5zudqr.mongodb.net/spicesDB?retryWrites=true&w=majority"
+
 )
 
-.then(() => {
+.then(()=>{
 
     console.log("✅ MongoDB Connected");
 
 })
 
-.catch((err) => {
+.catch((err)=>{
 
     console.log(err);
 
@@ -278,6 +286,7 @@ app.post("/add-product", async (req,res)=>{
         });
 
     }
+
     catch(err){
 
         console.log(err);
@@ -298,12 +307,12 @@ app.get("/products", async (req,res)=>{
 
     try{
 
-        const products =
-            await Product.find();
+        const products = await Product.find();
 
         res.json(products);
 
     }
+
     catch(err){
 
         console.log(err);
@@ -353,6 +362,7 @@ app.put("/update-product/:id", async (req,res)=>{
         });
 
     }
+
     catch(err){
 
         console.log(err);
@@ -388,6 +398,7 @@ app.delete("/delete-product/:id", async (req,res)=>{
         });
 
     }
+
     catch(err){
 
         console.log(err);
@@ -408,12 +419,11 @@ app.post("/add-review/:id", async (req,res)=>{
 
     try{
 
-        const product =
-            await Product.findById(
+        const product = await Product.findById(
 
-                req.params.id
+            req.params.id
 
-            );
+        );
 
         product.reviews.push({
 
@@ -436,6 +446,7 @@ app.post("/add-review/:id", async (req,res)=>{
         });
 
     }
+
     catch(err){
 
         console.log(err);
@@ -479,8 +490,6 @@ app.post("/place-order", async (req,res)=>{
             total
 
         } = req.body;
-
-        /* VALIDATION */
 
         if(
 
@@ -536,90 +545,113 @@ app.post("/place-order", async (req,res)=>{
 
         });
 
-      await order.save();
-      /* SEND EMAIL */
+        await order.save();
 
-/* SEND EMAIL IN BACKGROUND */
-try{
+        /* SEND EMAIL IN BACKGROUND */
 
-    console.log("EMAIL GOING TO:", email);
+        transporter.sendMail({
 
-    await transporter.sendMail({
+            from:"Atharv Masala <onboarding@resend.dev>",
 
-        from:"Atharv Masala <onboarding@resend.dev>",
+            to:email,
 
-        to:email,
+            subject:"Your Atharv Masala Order is Confirmed 🌶️",
 
-        subject:"Your Atharv Masala Order is Confirmed 🌶️",
+            html:`
 
-        html:`
+                <div
+                    style="
+                        font-family:Arial;
+                        padding:20px;
+                    "
+                >
 
-            <div
-                style="
-                    font-family:Arial;
-                    padding:20px;
-                "
-            >
+                    <h2>
+                        ✅ Order Confirmed
+                    </h2>
 
-                <h2>
-                    ✅ Order Confirmed
-                </h2>
+                    <p>
 
-                <p>
+                        Hello ${customerName},
 
-                    Hello ${customerName},
+                    </p>
 
-                </p>
+                    <p>
 
-                <p>
+                        Your order has been placed successfully.
 
-                    Your order has been placed successfully.
+                    </p>
 
-                </p>
+                    <h3>
 
-                <h3>
+    Order ID:
+    ${orderId}
 
-                    Order ID:
-                    ${orderId}
+</h3>
 
-                </h3>
+<a
 
-                <p>
+    href="https://spices-website-ynf3.onrender.com/track-order.html?orderId=${orderId}"
 
-                    Thank you for shopping with
-                    Atharv Masala 🌶️
+    style="
+        display:inline-block;
+        margin-top:20px;
+        padding:12px 20px;
+        background:#ff7a00;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        font-weight:bold;
+    "
 
-                </p>
+>
 
-            </div>
+    📦 Track Your Order
 
-        `
+</a>
 
-    });
+                    <p>
 
-    console.log("✅ Customer Email Sent");
+                        Thank you for shopping with
+                        Atharv Masala 🌶️
 
-}
-catch(error){
+                    </p>
 
-    console.log(
-        "❌ Email Error",
-        error
-    );
+                </div>
 
-}
+            `
 
-res.json({
+        })
 
-    success:true,
+        .then(()=>{
 
-    message:"🎉 Order Placed Successfully",
+            console.log(
+                "✅ Customer Email Sent"
+            );
 
-    orderId:orderId
+        })
 
-});
+        .catch((error)=>{
+
+            console.log(
+                "❌ Email Error",
+                error
+            );
+
+        });
+
+        res.json({
+
+            success:true,
+
+            message:"🎉 Order Placed Successfully",
+
+            orderId:orderId
+
+        });
 
     }
+
     catch(err){
 
         console.log(err);
@@ -642,18 +674,18 @@ app.get("/orders", async (req,res)=>{
 
     try{
 
-        const orders =
-            await Order.find()
+        const orders = await Order.find()
 
-            .sort({
+        .sort({
 
-                createdAt:-1
+            createdAt:-1
 
-            });
+        });
 
         res.json(orders);
 
     }
+
     catch(err){
 
         console.log(err);
@@ -674,12 +706,11 @@ app.get("/track-order/:orderId", async (req,res)=>{
 
     try{
 
-        const order =
-            await Order.findOne({
+        const order = await Order.findOne({
 
-                orderId:req.params.orderId
+            orderId:req.params.orderId
 
-            });
+        });
 
         if(!order){
 
@@ -702,6 +733,7 @@ app.get("/track-order/:orderId", async (req,res)=>{
         });
 
     }
+
     catch(err){
 
         console.log(err);
@@ -747,6 +779,7 @@ app.put(
             });
 
         }
+
         catch(err){
 
             console.log(err);

@@ -8,7 +8,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-const GEMINI_API_KEY = "AIzaSyAH7FDFOPqqeZIi9mJYDApBHwUcrj_pRtU";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 /* =========================================
    MIDDLEWARE
 ========================================= */

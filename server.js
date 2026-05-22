@@ -695,31 +695,31 @@ app.get("/", (req,res)=>{
    GEMINI AI CHATBOT
 ========================================= */
 
-app.post("/ai-chat", async(req,res)=>{
+app.post("/ai-chat", async (req, res) => {
 
-    try{
+    try {
 
         const userMessage = req.body.message;
 
         const response = await axios.post(
 
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
 
             {
 
-                contents:[
+                contents: [
 
                     {
 
-                        parts:[
+                        parts: [
 
                             {
 
-                                text:`
+                                text: `
 
 You are Atharv Masala AI Assistant.
 
-Reply shortly and friendly.
+Reply in short and friendly way.
 
 Customer Question:
 ${userMessage}
@@ -744,26 +744,24 @@ ${userMessage}
 
         res.json({
 
-            success:true,
+            success: true,
             reply
 
         });
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.log(
-
             "GEMINI ERROR:",
             error.response?.data || error.message
-
         );
 
         res.json({
 
-            success:false,
-            reply:"AI unavailable."
+            success: false,
+            reply: "AI unavailable."
 
         });
 

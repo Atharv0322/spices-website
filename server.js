@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-
+app.use(express.json());
 const GEMINI_API_KEY = "AIzaSyBP8YfVrz2mk_-9lkZhkOYdeRPZqrXwW3I";
 /* =========================================
    MIDDLEWARE
@@ -692,7 +692,7 @@ app.get("/", (req,res)=>{
 
 });
 /* =========================================
-   AI CHATBOT API
+   GEMINI AI CHATBOT
 ========================================= */
 
 app.post("/ai-chat", async(req,res)=>{
@@ -703,7 +703,7 @@ app.post("/ai-chat", async(req,res)=>{
 
         const response = await axios.post(
 
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
 
             {
 
@@ -719,14 +719,7 @@ app.post("/ai-chat", async(req,res)=>{
 
 You are Atharv Masala AI Assistant.
 
-You help customers with:
-- spices
-- products
-- delivery
-- tracking
-- payments
-
-Keep answers short and friendly.
+Reply shortly and friendly.
 
 Customer Question:
 ${userMessage}
@@ -745,12 +738,9 @@ ${userMessage}
 
         );
 
-        const reply = response
-            .data
-            .candidates[0]
-            .content
-            .parts[0]
-            .text;
+        const reply =
+            response.data.candidates[0]
+            .content.parts[0].text;
 
         res.json({
 
@@ -763,20 +753,23 @@ ${userMessage}
 
     catch(error){
 
-        console.log(error);
+        console.log(
+
+            "GEMINI ERROR:",
+            error.response?.data || error.message
+
+        );
 
         res.json({
 
             success:false,
-
-            reply:"AI is currently unavailable."
+            reply:"AI unavailable."
 
         });
 
     }
 
 });
-
 /* =========================================
    START SERVER
 ========================================= */

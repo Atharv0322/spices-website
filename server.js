@@ -1,5 +1,5 @@
 const express = require("express");
-const axios = require("axios");
+
 const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
@@ -8,7 +8,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
 /* =========================================
    MIDDLEWARE
 ========================================= */
@@ -691,83 +691,7 @@ app.get("/", (req,res)=>{
     res.send("🚀 Atharv Masala Backend Running");
 
 });
-/* =========================================
-   GEMINI AI CHATBOT
-========================================= */
 
-app.post("/ai-chat", async (req, res) => {
-
-    try {
-
-        const userMessage = req.body.message;
-
-        const response = await axios.post(
-
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-
-            {
-
-                contents: [
-
-                    {
-
-                        parts: [
-
-                            {
-
-                                text: `
-
-You are Atharv Masala AI Assistant.
-
-Reply in short and friendly way.
-
-Customer Question:
-${userMessage}
-
-`
-
-                            }
-
-                        ]
-
-                    }
-
-                ]
-
-            }
-
-        );
-
-        const reply =
-            response.data.candidates[0]
-            .content.parts[0].text;
-
-        res.json({
-
-            success: true,
-            reply
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.log(
-            "GEMINI ERROR:",
-            error.response?.data || error.message
-        );
-
-        res.json({
-
-            success: false,
-            reply: "AI unavailable."
-
-        });
-
-    }
-
-});
 /* =========================================
    START SERVER
 ========================================= */
